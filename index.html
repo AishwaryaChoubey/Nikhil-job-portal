@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nikhil Tiwari - Cybersecurity & Automotive Security Job Search Portal</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --accent: #2ea043;
+      --accent-hover: #3fb950;
+      --blue: #58a6ff;
+      --text-primary: #c9d1d9;
+      --text-bright: #ffffff;
+      --text-muted: #8b949e;
+      --chip-bg: #21262d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      padding: 30px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--blue);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--text-bright);
+      margin: 28px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 24px;
+    }
+
+    .location-select {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    select, input[type="text"] {
+      background: var(--chip-bg);
+      border: 1px solid var(--border);
+      color: var(--text-bright);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .job-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--blue);
+    }
+
+    .job-header {
+      margin-bottom: 12px;
+    }
+
+    .job-title {
+      font-size: 1.15rem;
+      color: var(--text-bright);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .job-match {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      background: var(--chip-bg);
+      border: 1px solid var(--border);
+      color: var(--blue);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .portal-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-linkedin {
+      background: #0a66c2;
+      color: #fff;
+    }
+    .btn-linkedin:hover { background: #084e96; }
+
+    .btn-naukri {
+      background: #4a90e2;
+      color: #fff;
+    }
+    .btn-naukri:hover { background: #357abd; }
+
+    .btn-indeed {
+      background: #2557a7;
+      color: #fff;
+    }
+    .btn-indeed:hover { background: #1c4280; }
+
+    .btn-google {
+      background: var(--chip-bg);
+      border: 1px solid var(--border);
+      color: var(--text-bright);
+    }
+    .btn-google:hover { background: var(--border); }
+
+    .quick-searches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .quick-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .quick-btn:hover {
+      border-color: var(--accent);
+      color: var(--text-bright);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Nikhil Tiwari</h1>
+      <div class="subtitle">Cybersecurity Engineer | Embedded Linux & Automotive (ISO 21434 / TARA) | AOSP & Network Security</div>
+      <div class="meta">
+        <span>📍 Bengaluru, India</span>
+        <span>📧 tnikhil.703@gmail.com</span>
+        <span>📞 +91-7999716110</span>
+        <span>💼 3+ Years Experience</span>
+      </div>
+    </header>
+
+    <div class="filter-bar">
+      <div class="location-select">
+        <label for="locationInput">Default Search Location:</label>
+        <input type="text" id="locationInput" value="Bengaluru, India" oninput="updateAllLinks()" placeholder="e.g. Bengaluru, India or Remote" />
+        <button class="btn btn-linkedin" style="padding: 6px 14px;" onclick="updateAllLinks()">Update All URLs</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Type your target city or "Remote" to dynamically update all job search queries across LinkedIn, Naukri, Indeed, and Google Jobs.
+      </p>
+    </div>
+
+    <div class="section-title">Direct Portal Launches by Target Role</div>
+    <div class="job-grid" id="jobGrid">
+      <!-- Cards rendered via JavaScript -->
+    </div>
+
+    <div class="section-title">Specialized Keyword Launches</div>
+    <div class="filter-bar">
+      <div class="quick-searches" id="quickSearches">
+        <!-- Keyword chips generated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const roles = [
+      {
+        title: "Automotive Cybersecurity Engineer",
+        skills: "ISO 21434, TARA, ECU Security, Threat Modeling",
+        query: "Automotive Cybersecurity Engineer ISO 21434",
+        tags: ["ISO/SAE 21434", "TARA", "ECU Hardening", "Threat Modeling"]
+      },
+      {
+        title: "Embedded Security Engineer",
+        skills: "Embedded Linux, Kernel Hardening, SELinux, iptables",
+        query: "Embedded Security Engineer Linux SELinux",
+        tags: ["Embedded Linux", "SELinux", "iptables/netfilter", "Kernel Security"]
+      },
+      {
+        title: "Cybersecurity Engineer (L2 / Product)",
+        skills: "Vulnerability Management, Incident Response, Network Forensics",
+        query: "Cybersecurity Engineer Embedded Vulnerability",
+        tags: ["Vulnerability Management", "Wireshark", "CVE Remediation", "Incident Response"]
+      },
+      {
+        title: "Android / AOSP Security Engineer",
+        skills: "Android Internals, MAC Policies, SELinux, AOSP ROM",
+        query: "Android Security Engineer AOSP SELinux",
+        tags: ["AOSP", "Android OS Internals", "SELinux MAC", "Android CTS"]
+      },
+      {
+        title: "Product Security / DevSecOps Engineer",
+        skills: "SonarQube, CI/CD Security, CVE Patching, Static Analysis",
+        query: "Product Security Engineer CVE SonarQube",
+        tags: ["SonarQube", "Jenkins CI/CD", "Secure Coding", "Patch Management"]
+      },
+      {
+        title: "Network Security & Forensics Engineer",
+        skills: "Firewall Architecture, tcpdump, Wireshark, DDoS/MITM Prevention",
+        query: "Network Security Engineer Wireshark iptables",
+        tags: ["Wireshark", "tcpdump", "DDoS Mitigation", "SECMARK/RPF"]
+      }
+    ];
+
+    const keywords = [
+      "ISO 21434 Engineer",
+      "TARA Automotive Cybersecurity",
+      "Embedded Linux Hardening",
+      "SELinux Policy Engineer",
+      "AOSP Security Specialist",
+      "Harman / Automotive Tier 1 Security",
+      "Wireshark Incident Response",
+      "Iptables Firewall Engineer"
+    ];
+
+    function generateLinks(query, loc) {
+      const q = encodeURIComponent(query);
+      const l = encodeURIComponent(loc);
+      return {
+        linkedin: `https://www.linkedin.com/jobs/search/?keywords=${q}&location=${l}`,
+        naukri: `https://www.naukri.com/${encodeURIComponent(query.toLowerCase().replace(/ /g, '-'))}-jobs-in-${encodeURIComponent(loc.toLowerCase().replace(/ /g, '-'))}`,
+        indeed: `https://www.indeed.com/jobs?q=${q}&l=${l}`,
+        google: `https://www.google.com/search?q=${q}+jobs+in+${l}&ibp=htl;jobs`
+      };
+    }
+
+    function renderCards() {
+      const loc = document.getElementById("locationInput").value.trim() || "Bengaluru";
+      const container = document.getElementById("jobGrid");
+      container.innerHTML = "";
+
+      roles.forEach(role => {
+        const links = generateLinks(role.query, loc);
+        const card = document.createElement("div");
+        card.className = "job-card";
+        card.innerHTML = `
+          <div>
+            <div class="job-header">
+              <div class="job-title">${role.title}</div>
+              <div class="job-match">${role.skills}</div>
+            </div>
+            <div class="tags">
+              ${role.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+            </div>
+          </div>
+          <div class="portal-buttons">
+            <a class="btn btn-linkedin" href="${links.linkedin}" target="_blank">LinkedIn</a>
+            <a class="btn btn-naukri" href="${links.naukri}" target="_blank">Naukri</a>
+            <a class="btn btn-indeed" href="${links.indeed}" target="_blank">Indeed</a>
+            <a class="btn btn-google" href="${links.google}" target="_blank">Google Jobs</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      const quickContainer = document.getElementById("quickSearches");
+      quickContainer.innerHTML = "";
+      keywords.forEach(kw => {
+        const links = generateLinks(kw, loc);
+        const a = document.createElement("a");
+        a.className = "quick-btn";
+        a.href = links.linkedin;
+        a.target = "_blank";
+        a.textContent = `🔍 ${kw}`;
+        quickContainer.appendChild(a);
+      });
+    }
+
+    function updateAllLinks() {
+      renderCards();
+    }
+
+    // Initial render
+    renderCards();
+  </script>
+</body>
+</html>
