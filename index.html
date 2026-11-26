@@ -50,21 +50,25 @@
   .card h3 { font-size: 1.15rem; color: var(--text); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 
   input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; margin-top: 6px; margin-bottom: 14px; font-family: inherit; }
-  textarea { resize: vertical; min-height: 120px; }
+  textarea { resize: vertical; min-height: 110px; }
   button.btn, a.btn { background: var(--primary-light); color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.88rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
   button.btn:hover, a.btn:hover { background: #1e3a8a; }
   button.btn-outline, a.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
   button.btn-outline:hover, a.btn-outline:hover { background: #f1f5f9; }
   button.btn-success { background: var(--success); color: white; }
   button.btn-success:hover { background: #15803d; }
-  a.btn-purple { background: var(--purple); color: white; }
-  a.btn-purple:hover { background: #6d28d9; }
-  a.btn-teal { background: var(--teal); color: white; padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
-  a.btn-teal:hover { background: #0f766e; }
+  a.btn-purple, button.btn-purple { background: var(--purple); color: white; }
+  a.btn-purple:hover, button.btn-purple:hover { background: #6d28d9; }
+  a.btn-teal, button.btn-teal { background: var(--teal); color: white; padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
+  a.btn-teal:hover, button.btn-teal:hover { background: #0f766e; }
 
   .filter-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
   .pill-btn { background: #f1f5f9; border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: 0.15s; }
   .pill-btn.active, .pill-btn:hover { background: var(--teal); color: white; border-color: var(--teal); }
+
+  /* Boolean Search Box */
+  .boolean-bar { background: #0f172a; color: #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .boolean-code { font-family: monospace; font-size: 0.82rem; color: #38bdf8; background: rgba(255,255,255,0.06); padding: 8px 10px; border-radius: 6px; word-break: break-word; }
 
   /* Top 30 Matched Jobs Grid */
   .top30-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; margin-top: 16px; }
@@ -108,6 +112,9 @@
     margin-bottom: 14px;
   }
 
+  .bullet-rewriter-box { margin-top: 18px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 16px; }
+  .bullet-output { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; font-size: 0.86rem; line-height: 1.65; white-space: pre-wrap; margin-top: 10px; color: #0f172a; }
+
   .search-pill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 14px; }
   .platform-card { border: 1px solid var(--border); border-radius: 8px; padding: 14px; background: #fafafa; display: flex; flex-direction: column; justify-content: space-between; }
   .platform-card h4 { font-size: 0.95rem; margin-bottom: 4px; color: #1e3a8a; }
@@ -139,14 +146,23 @@
   th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
   th { background: #f8fafc; font-weight: 600; color: var(--text-muted); }
 
-  .q-bank-container { max-height: 540px; overflow-y: auto; padding-right: 8px; }
+  /* Mock Interview Timer & STAR Scratchpad */
+  .timer-strip { background: #0f172a; color: white; border-radius: 10px; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .timer-clock { font-family: monospace; font-size: 1.5rem; font-weight: 800; color: #38bdf8; }
+  .timer-clock.warn { color: #f87171; }
+  .q-bank-container { max-height: 580px; overflow-y: auto; padding-right: 8px; }
   .q-bank-container ol { padding-left: 20px; font-size: 0.86rem; line-height: 1.75; }
-  .q-bank-container li { margin-bottom: 10px; }
-  .q-hint { background: #f1f5f9; border-left: 3px solid var(--accent); padding: 6px 10px; margin-top: 4px; font-size: 0.8rem; color: #334155; border-radius: 0 6px 6px 0; }
+  .q-bank-container li { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #e2e8f0; }
+  .q-hint { background: #f1f5f9; border-left: 3px solid var(--accent); padding: 6px 10px; margin-top: 5px; font-size: 0.8rem; color: #334155; border-radius: 0 6px 6px 0; }
+  .star-note-toggle { background: none; border: none; color: var(--purple); font-size: 0.78rem; font-weight: 700; cursor: pointer; margin-top: 5px; display: inline-block; }
+  .star-note-box { display: none; margin-top: 6px; }
+  .star-note-box textarea { min-height: 68px; font-size: 0.82rem; margin-bottom: 4px; background: #fffbeb; border-color: #fde68a; }
 
   .calc-result-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 10px; }
   .calc-stat span { font-size: 0.78rem; color: #166534; display: block; }
   .calc-stat strong { font-size: 1.35rem; color: #15803d; }
+
+  .offer-verdict { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 10px; padding: 14px 18px; margin-top: 14px; font-size: 0.9rem; color: #1e3a8a; font-weight: 600; }
 
   .script-box { background: #eff6ff; border-left: 4px solid var(--primary-light); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 0.88rem; }
 
@@ -180,11 +196,11 @@
 <div class="container">
   <div class="nav-tabs">
     <button class="tab-btn active" id="tab-btn-live-search" onclick="showTab('live-search')">🔍 1. Live Job Search & Top 30 Matches</button>
-    <button class="tab-btn" id="tab-btn-matcher" onclick="showTab('matcher')">🎯 2. Resume & JD Matcher</button>
+    <button class="tab-btn" id="tab-btn-matcher" onclick="showTab('matcher')">🎯 2. Resume Matcher & Bullet Rewriter</button>
     <button class="tab-btn" id="tab-btn-ai-prompts" onclick="showTab('ai-prompts')">🤖 3. AI Prompt Studio (11)</button>
     <button class="tab-btn" id="tab-btn-companies" onclick="showTab('companies')">🏢 4. Target Companies (All India)</button>
-    <button class="tab-btn" id="tab-btn-interview-studio" onclick="showTab('interview-studio')">💡 5. Interview Studio (100 Qs)</button>
-    <button class="tab-btn" id="tab-btn-salary" onclick="showTab('salary')">💰 6. Product-GCC Pay & Anti-Anchoring Guide</button>
+    <button class="tab-btn" id="tab-btn-interview-studio" onclick="showTab('interview-studio')">💡 5. Interview Studio & STAR Notes</button>
+    <button class="tab-btn" id="tab-btn-salary" onclick="showTab('salary')">💰 6. Product-GCC Pay & Offer Comparator</button>
   </div>
 
   <!-- TAB 1: LIVE SEARCH & TOP 30 RESUME-MATCHED JOBS -->
@@ -237,6 +253,19 @@
             <option value="Remote">Remote (India Payroll / WFH)</option>
           </select>
         </div>
+      </div>
+
+      <!-- POINT 3: X-RAY BOOLEAN SEARCH STRING GENERATOR -->
+      <div class="boolean-bar">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <span style="font-size: 0.82rem; font-weight: 700; color: #93c5fd;">🔎 Live Boolean X-Ray Search String (Uncovers Hidden Postings):</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-teal" onclick="copyBooleanQuery(this)">📋 Copy Boolean</button>
+            <a id="link-boolean-linkedin" target="_blank" class="btn" style="padding: 5px 10px; font-size: 0.78rem;">Run on LinkedIn ↗</a>
+            <a id="link-boolean-google" target="_blank" class="btn btn-purple" style="padding: 5px 10px; font-size: 0.78rem;">Google ATS X-Ray ↗</a>
+          </div>
+        </div>
+        <div class="boolean-code" id="booleanQueryDisplay"></div>
       </div>
 
       <!-- TOP 30 RESUME-MATCHED JOBS SECTION -->
@@ -449,7 +478,7 @@
     </div>
   </div>
 
-  <!-- TAB 2: RESUME UPLOADER & MATCHER -->
+  <!-- TAB 2: RESUME UPLOADER, MATCHER & ONE-CLICK BULLET REWRITER -->
   <div id="matcher" class="tab-content">
     <div class="grid-2">
       <div class="card">
@@ -501,7 +530,7 @@
     <div class="card" id="matchResultsCard" style="display: none;">
       <h3>
         <span>🎯 Match Analysis & ATS Diagnostic Report</span>
-        <button class="btn" onclick="sendMissingToAiStudio()">🤖 Tailor Resume in AI Prompt Studio ➔</button>
+        <button class="btn" onclick="sendMissingToAiStudio()">🤖 Full Resume Rewrite in AI Studio ➔</button>
       </h3>
       <div class="grid-2">
         <div>
@@ -525,6 +554,18 @@
           <h4 style="color: #1e3a8a; margin-bottom: 8px;">🔍 ATS Structure & Formatting Audit</h4>
           <div id="atsAuditList" style="font-size: 0.88rem; line-height: 1.8;"></div>
         </div>
+      </div>
+
+      <!-- POINT 2: ONE-CLICK TAILORED RESUME BULLET REWRITER -->
+      <div class="bullet-rewriter-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h4 style="color: #0f172a; font-size: 1rem;">⚡ Instant ATS-Injected Resume Bullets (Ready to Copy-Paste)</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Automatically weaves the missing JD keywords above into Nikhil's ISO 21434, Embedded Linux, and AOSP bullets.</p>
+          </div>
+          <button class="btn-teal" onclick="copyTailoredBullets(this)">📋 Copy Tailored Bullets</button>
+        </div>
+        <div class="bullet-output" id="tailoredBulletsOutput"></div>
       </div>
     </div>
   </div>
@@ -766,13 +807,26 @@
     </div>
   </div>
 
-  <!-- TAB 5: INTERVIEW STUDIO -->
+  <!-- TAB 5: INTERVIEW STUDIO, MOCK TIMER & STAR SCRATCHPAD -->
   <div id="interview-studio" class="tab-content">
     <div class="card">
       <h3>Generate Track-Filtered Cybersecurity Interview Preparation Kit</h3>
       <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
-        Filter technical questions by specialization or generate the complete 100-question bank with quick-revision answer hints.
+        Practice concise 90-second answers with the live mock timer, review technical hints, and save your personal STAR stories under any question.
       </p>
+
+      <!-- POINT 4: 90-SECOND MOCK INTERVIEW TIMER -->
+      <div class="timer-strip">
+        <div>
+          <span style="font-size: 0.8rem; color: #93c5fd; display: block;">🎙️ Mock Interview 90-Second Pitch / Answer Timer</span>
+          <span style="font-size: 0.78rem; color: #cbd5e1;">Keep technical explanations & STAR answers crisp (60–90 sec)</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="timer-clock" id="mockTimerDisplay">01:30</span>
+          <button class="btn btn-success" style="padding: 6px 12px; font-size: 0.8rem;" onclick="toggleMockTimer()" id="timerToggleBtn">▶ Start</button>
+          <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; color: white; border-color: rgba(255,255,255,0.3);" onclick="resetMockTimer()">↺ Reset</button>
+        </div>
+      </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
         <div>
@@ -798,7 +852,7 @@
       <div class="card">
         <h3 id="interviewHeader">🎯 Cybersecurity Interview Question Bank</h3>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
-          Includes quick-revision technical key points on core automotive, Linux, AOSP, and forensics questions.
+          Click <strong>"✍️ My STAR Notes"</strong> under any question to write and auto-save your personal answer in your browser.
         </p>
 
         <div class="grid-2">
@@ -820,7 +874,7 @@
     </div>
   </div>
 
-  <!-- TAB 6: PRODUCT-GCC PAY & ANTI-ANCHORING GUIDE -->
+  <!-- TAB 6: PRODUCT-GCC PAY, OFFER COMPARATOR & ANTI-ANCHORING GUIDE -->
   <div id="salary" class="tab-content">
     <div class="card">
       <h3>🧮 Total Compensation (Base + RSUs + Bonus) & Hike Evaluator</h3>
@@ -863,6 +917,68 @@
           <strong id="resGain">+19.00 LPA</strong>
         </div>
       </div>
+    </div>
+
+    <!-- POINT 5: SIDE-BY-SIDE 2-OFFER COMPARISON MATRIX -->
+    <div class="card">
+      <h3>⚖️ Side-by-Side 2-Offer Comparison Matrix (Offer A vs. Offer B)</h3>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px;">
+        Compare two competing offers across recurring cash, equity, buyout/relocation perks, and career growth.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Evaluation Factor</th>
+            <th>Offer A</th>
+            <th>Offer B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Company Name & City</strong></td>
+            <td><input type="text" id="offA_name" value="Product GCC (Bengaluru)" oninput="compareOffers()" style="margin:0;"></td>
+            <td><input type="text" id="offB_name" value="Automotive Tier-1 (Pune)" oninput="compareOffers()" style="margin:0;"></td>
+          </tr>
+          <tr>
+            <td><strong>Fixed Base Cash (LPA)</strong></td>
+            <td><input type="number" id="offA_base" value="25" step="0.5" oninput="compareOffers()" style="margin:0;"></td>
+            <td><input type="number" id="offB_base" value="22" step="0.5" oninput="compareOffers()" style="margin:0;"></td>
+          </tr>
+          <tr>
+            <td><strong>Annual Vested RSUs + Bonus (LPA)</strong></td>
+            <td><input type="number" id="offA_rsu" value="9" step="0.5" oninput="compareOffers()" style="margin:0;"></td>
+            <td><input type="number" id="offB_rsu" value="3" step="0.5" oninput="compareOffers()" style="margin:0;"></td>
+          </tr>
+          <tr>
+            <td><strong>Year-1 Joining + Relocation (LPA)</strong></td>
+            <td><input type="number" id="offA_join" value="3" step="0.5" oninput="compareOffers()" style="margin:0;"></td>
+            <td><input type="number" id="offB_join" value="2" step="0.5" oninput="compareOffers()" style="margin:0;"></td>
+          </tr>
+          <tr>
+            <td><strong>Notice Buyout & Work Mode</strong></td>
+            <td>
+              <select id="offA_mode" onchange="compareOffers()" style="margin:0;">
+                <option value="2">Hybrid + Full Notice Buyout</option>
+                <option value="3">100% Remote + Notice Buyout</option>
+                <option value="1">5 Days Office / Partial Buyout</option>
+              </select>
+            </td>
+            <td>
+              <select id="offB_mode" onchange="compareOffers()" style="margin:0;">
+                <option value="2" selected>Hybrid + Full Notice Buyout</option>
+                <option value="3">100% Remote + Notice Buyout</option>
+                <option value="1">5 Days Office / Partial Buyout</option>
+              </select>
+            </td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td><strong>Recurring Annual TC (Base + RSU)</strong></td>
+            <td><strong id="offA_tc" style="color: var(--primary-light); font-size: 1rem;">34.00 LPA</strong></td>
+            <td><strong id="offB_tc" style="color: var(--primary-light); font-size: 1rem;">25.00 LPA</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="offer-verdict" id="offerVerdictBox"></div>
     </div>
 
     <div class="card">
@@ -930,7 +1046,7 @@
     <h4>💡 High-Impact Cybersecurity Job Hunting Tips & Application Strategy</h4>
     <ul>
       <li><strong>Target Band-Based Employers:</strong> Prioritize Product GCCs and Semiconductor/Security firms (Qualcomm, NVIDIA, Palo Alto, CrowdStrike, MBRDI, Harman) that pay standardized level bands (28–45+ LPA TC) rather than percentage-capped service firms.</li>
-      <li><strong>Multi-City Advantage:</strong> Pune (Hinjewadi), Hyderabad (HITEC City), and Chennai (OMR) host massive Automotive & Semiconductor R&D centers—use the <em>"Other Cities of India"</em> filter in Tab 1 to unlock 2x more openings.</li>
+      <li><strong>Multi-City Advantage:</strong> Pune (Hinjewadi), Hyderabad (HITEC City), and Chennai (OMR) host massive Automotive & Semiconductor R&D centers—use the <em>"Other Cities of India"</em> filter or the <em>Boolean X-Ray bar</em> in Tab 1 to uncover hidden roles.</li>
       <li><strong>Referral Bypass:</strong> Use Tab 4's <em>"Hiring Managers ↗"</em> links + Tab 3's <em>Employee Referral Request</em> prompt to get directly into technical interview loops.</li>
     </ul>
   </footer>
@@ -940,7 +1056,7 @@
 let lastMissingKeywords = [];
 let quickCityMode = 'All';
 
-// CURATED POOL OF 36 HIGH-FIT ROLES ACROSS BENGALURU, OTHER CITIES OF INDIA & REMOTE
+// CURATED POOL OF 34 HIGH-FIT ROLES ACROSS BENGALURU, OTHER CITIES OF INDIA & REMOTE
 const roleOpportunitiesPool = [
   // BENGALURU ROLES
   { title: "Automotive Cybersecurity Engineer (ISO 21434)", company: "Harman International", city: "Bengaluru", region: "Bengaluru", skills: ["iso 21434", "tara", "aosp", "automotive", "ecu", "threat modeling"], query: "Automotive Cybersecurity Engineer Harman" },
@@ -1144,7 +1260,7 @@ function renderTop30Jobs() {
     `Showing Top ${top30.length} Resume-Calibrated Roles (${quickCityMode !== 'All' ? quickCityMode : locDropdown}) • Ranked by Resume Skill Overlap`;
 
   if (!top30.length) {
-    container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.88rem; grid-column: 1/-1;">No preset cards matched that exact keyword filter—use the Live Search Launchers directly below to search across all platforms!</p>`;
+    container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.88rem; grid-column: 1/-1;">No preset cards matched that exact keyword filter—use the Live Search Launchers or Boolean X-Ray bar directly to search across all platforms!</p>`;
     return;
   }
 
@@ -1288,6 +1404,7 @@ function sendMissingToAiStudio() {
 
 loadDefaultNikhilProfile(false);
 
+// POINT 2: ATS MATCHER + INSTANT TAILORED BULLET REWRITER
 function runComprehensiveMatch() {
   const resumeText = document.getElementById('parsedResumeText').value.toLowerCase();
   const jdText = document.getElementById('jdInput').value.toLowerCase();
@@ -1367,10 +1484,36 @@ function runComprehensiveMatch() {
     : '<span style="color: var(--success); font-size: 0.85rem;">Excellent coverage! No missing target terms.</span>';
 
   document.getElementById('atsAuditList').innerHTML = atsAudit.map(a => `<div>${a}</div>`).join('');
+
+  // Generate tailored resume bullets incorporating missing keywords
+  generateTailoredBullets(missing);
   document.getElementById('matchResultsCard').scrollIntoView({ behavior: 'smooth' });
 }
 
-// LIVE SEARCH URL ENGINE (WITH "OTHER CITIES OF INDIA" SUPPORT)
+function generateTailoredBullets(missing) {
+  const kwUpper = missing.map(k => k.toUpperCase());
+  const autoTerms = kwUpper.filter(k => ["AUTOSAR", "SECOC", "UNECE R155", "WP.29", "CAN", "ETHERNET", "HSM", "PKI", "TRUSTZONE", "TEE", "SECURE BOOT"].includes(k));
+  const osTerms = kwUpper.filter(k => ["SELINUX", "AOSP", "ANDROID", "KERNEL", "HARDENING", "CTS", "MAC", "IPTABLES", "NETFILTER"].includes(k));
+  const opsTerms = kwUpper.filter(k => ["CVE", "SBOM", "FUZZING", "PENETRATION TESTING", "SONARQUBE", "CI/CD", "DEVSECOPS", "FORENSICS", "WIRESHARK"].includes(k));
+
+  const b1 = `• Spearheaded end-to-end Threat Analysis and Risk Assessment (TARA) and cybersecurity architecture reviews aligned with ISO/SAE 21434${autoTerms.length ? ` (incorporating ${autoTerms.join(', ')} security controls)` : ''}, defining cybersecurity goals and mitigating critical attack paths across connected ECUs.`;
+  const b2 = `• Hardened Embedded Linux and Android/AOSP builds by authoring least-privilege SELinux Mandatory Access Control (MAC) policies${osTerms.length ? ` and ${osTerms.join(', ')} configurations` : ''}, passing Android CTS security suites and eliminating unauthorized privilege escalation vectors.`;
+  const b3 = `• Designed stateful host-based firewall architectures using iptables/netfilter, SECMARK, and Reverse Path Filtering (RPF) alongside deep packet inspection (Wireshark, tcpdump) to detect and mitigate MITM, ARP spoofing, and DDoS anomalies.`;
+  const b4 = `• Drove continuous Vulnerability Management, CVE remediation, and automated static security gates via SonarQube in Jenkins CI/CD pipelines${opsTerms.length ? `, extending coverage across ${opsTerms.join(', ')} workflows` : ''}.`;
+
+  document.getElementById('tailoredBulletsOutput').innerText = [b1, b2, b3, b4].join('\n\n');
+}
+
+function copyTailoredBullets(btnEl) {
+  const text = document.getElementById('tailoredBulletsOutput').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btnEl.innerText;
+    btnEl.innerText = "✅ Copied Bullets!";
+    setTimeout(() => { btnEl.innerText = orig; }, 1800);
+  });
+}
+
+// LIVE SEARCH URL ENGINE + POINT 3 BOOLEAN X-RAY GENERATOR
 function updateSearchUrls() {
   const customKw = document.getElementById('customKeyword').value.trim();
   const presetRole = document.getElementById('searchRole').value;
@@ -1410,6 +1553,23 @@ function updateSearchUrls() {
     founditDays = "30";
     remoteDaysText = "30 days";
   }
+
+  // Update Boolean X-Ray String
+  const coreBoolean = customKw
+    ? `("${customKw}" OR "ISO 21434" OR "TARA" OR "SELinux" OR "AOSP")`
+    : `("ISO 21434" OR "TARA" OR "Automotive Cybersecurity" OR "Embedded Security" OR "SELinux" OR "AOSP")`;
+  const locBoolean = isRemote
+    ? `("Remote" OR "Work from home")`
+    : isOtherCities
+      ? `("Pune" OR "Hyderabad" OR "Chennai" OR "Noida" OR "Gurugram")`
+      : isAllIndia
+        ? `("Bengaluru" OR "Pune" OR "Hyderabad" OR "Chennai" OR "Noida")`
+        : `("Bengaluru" OR "Bangalore")`;
+  const fullBoolean = `${coreBoolean} AND ${locBoolean}`;
+
+  document.getElementById('booleanQueryDisplay').innerText = fullBoolean;
+  document.getElementById('link-boolean-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(fullBoolean)}&location=India&f_TPR=${linkedinTime}&sortBy=DD`;
+  document.getElementById('link-boolean-google').href = `https://www.google.com/search?q=${encodeURIComponent('(site:boards.greenhouse.io OR site:jobs.lever.co OR site:myworkdayjobs.com) ' + fullBoolean)}`;
 
   if (isRemote) {
     document.getElementById('link-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&location=India&f_WT=2&f_TPR=${linkedinTime}&sortBy=DD`;
@@ -1478,6 +1638,15 @@ function updateSearchUrls() {
   document.getElementById('link-linkedin-remote').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&f_WT=2&f_TPR=${linkedinTime}&sortBy=DD`;
 }
 updateSearchUrls();
+
+function copyBooleanQuery(btnEl) {
+  const txt = document.getElementById('booleanQueryDisplay').innerText;
+  navigator.clipboard.writeText(txt).then(() => {
+    const orig = btnEl.innerText;
+    btnEl.innerText = "✅ Copied!";
+    setTimeout(() => { btnEl.innerText = orig; }, 1600);
+  });
+}
 
 function launchDailyRoutine() {
   const ids = ['link-linkedin', 'link-naukri', 'link-indeed', 'link-google'];
@@ -1554,58 +1723,122 @@ function filterRemoteCompanies() {
   renderRemoteCompanies(query);
 }
 
+// POINT 4: 90-SECOND MOCK INTERVIEW TIMER + STAR NOTES SCRATCHPAD
+let mockTimerSeconds = 90;
+let mockTimerInterval = null;
+
+function updateTimerDisplay() {
+  const mins = String(Math.floor(mockTimerSeconds / 60)).padStart(2, '0');
+  const secs = String(mockTimerSeconds % 60).padStart(2, '0');
+  const el = document.getElementById('mockTimerDisplay');
+  el.innerText = `${mins}:${secs}`;
+  if (mockTimerSeconds <= 15) el.classList.add('warn');
+  else el.classList.remove('warn');
+}
+
+function toggleMockTimer() {
+  const btn = document.getElementById('timerToggleBtn');
+  if (mockTimerInterval) {
+    clearInterval(mockTimerInterval);
+    mockTimerInterval = null;
+    btn.innerText = "▶ Resume";
+  } else {
+    btn.innerText = "⏸ Pause";
+    mockTimerInterval = setInterval(() => {
+      if (mockTimerSeconds > 0) {
+        mockTimerSeconds--;
+        updateTimerDisplay();
+      } else {
+        clearInterval(mockTimerInterval);
+        mockTimerInterval = null;
+        btn.innerText = "▶ Start";
+      }
+    }, 1000);
+  }
+}
+
+function resetMockTimer() {
+  if (mockTimerInterval) {
+    clearInterval(mockTimerInterval);
+    mockTimerInterval = null;
+  }
+  mockTimerSeconds = 90;
+  updateTimerDisplay();
+  document.getElementById('timerToggleBtn').innerText = "▶ Start";
+}
+
+function toggleStarNote(noteKey) {
+  const box = document.getElementById('note-box-' + noteKey);
+  if (!box) return;
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+function saveStarNote(noteKey, val) {
+  try {
+    localStorage.setItem('nikhil_star_' + noteKey, val);
+  } catch (e) {}
+}
+
+function getStarNote(noteKey) {
+  try {
+    return localStorage.getItem('nikhil_star_' + noteKey) || "";
+  } catch (e) {
+    return "";
+  }
+}
+
 // TRACK-FILTERED TECHNICAL QUESTIONS WITH HINTS
 const technicalBank = [
-  { track: "automotive", q: "Walk through the end-to-end Threat Analysis and Risk Assessment (TARA) methodology under ISO/SAE 21434.", hint: "Cover: Item Definition → Asset Identification & Cybersecurity Properties (CIA) → Threat Scenarios (STRIDE) → Impact Rating (SFOP: Safety, Financial, Operational, Privacy) → Attack Path Analysis → Attack Feasibility Rating → Risk Value & Treatment Decision." },
-  { track: "automotive", q: "How do you determine Attack Feasibility Ratings (Attack Potential vs. CVSS-based vs. Attack Vector) in an automotive TARA?", hint: "Explain ISO 21434 Annex G: Attack Potential sums Elapsed Time, Specialist Expertise, Knowledge of Item, Window of Opportunity, and Equipment (Very Low to High)." },
-  { track: "automotive", q: "Explain the difference between Cybersecurity Goals, Cybersecurity Requirements, and Cybersecurity Controls in ISO/SAE 21434.", hint: "Goals = high-level objectives tied to 'Reduce' risk treatment; Requirements = technical specifications allocated to components; Controls = concrete implementations (e.g., SecOC, Secure Boot)." },
-  { track: "aosp", q: "How do you write and debug a custom SELinux Mandatory Access Control (MAC) policy for a new daemon in AOSP or Embedded Linux?", hint: "Mention defining domain/type in .te, labeling binary in file_contexts, running in permissive mode, collecting dmesg/logcat avc: denied logs, and translating with audit2allow while avoiding broad rules." },
-  { track: "aosp", q: "What is the difference between SELinux Permissive mode and Enforcing mode, and how do you resolve AVC denial logs cleanly without over-permitting?", hint: "Permissive logs denials without blocking; Enforcing blocks and logs. Resolve cleanly by granting least-privilege permissions to specific target types rather than blanket wildcards." },
-  { track: "aosp", q: "How does Android's Verified Boot (AVB) and dm-verity protect the OS partition from persistent rootkits?", hint: "AVB establishes a cryptographic chain of trust from hardware RoT → Bootloader → boot/vbmeta partitions; dm-verity validates block-level hashes of system/vendor partitions at runtime." },
-  { track: "linux", q: "Explain the architecture of Linux netfilter and the packet traversal order across PREROUTING, INPUT, FORWARD, OUTPUT, and POSTROUTING chains.", hint: "Incoming local packet: PREROUTING → Routing Decision → INPUT → Local Process. Routed packet: PREROUTING → FORWARD → POSTROUTING. Local outbound: OUTPUT → POSTROUTING." },
-  { track: "linux", q: "How do you configure iptables/nftables rules to mitigate SYN flood DDoS attacks and IP spoofing on an embedded gateway?", hint: "Enable net.ipv4.tcp_syncookies=1, use hashlimit/limit modules on --syn packets, drop INVALID connection states via conntrack, and drop bogon/spoofed source IPs." },
-  { track: "linux", q: "What is Reverse Path Filtering (rp_filter) and SECMARK in Linux networking, and how do they harden an automotive ECU?", hint: "rp_filter drops packets whose source IP isn't reachable via the incoming interface (anti-spoofing); SECMARK attaches SELinux security contexts to packets for fine-grained socket access control." },
-  { track: "forensics", q: "How do you analyze a PCAP capture in Wireshark or tcpdump to detect ARP spoofing, MITM attacks, or anomalous C2 beaconing?", hint: "Check duplicate MAC-to-IP mappings (arp.duplicate-address-detected), anomalous TLS handshakes/self-signed certs, DNS tunneling patterns, and periodic fixed-interval outbound TCP flows." },
-  { track: "linux", q: "Explain how Secure Boot works from BootROM (Root of Trust) through U-Boot/BL2 to the Linux kernel image verification.", hint: "Immutable BootROM verifies BL2 signature via fused eFuse public key hash → BL2 verifies U-Boot → U-Boot verifies signed FIT image (kernel + DTB + initramfs)." },
-  { track: "automotive", q: "What is the role of a Hardware Security Module (HSM) or Trusted Execution Environment (TEE / ARM TrustZone) in automotive ECUs?", hint: "HSM isolates cryptographic keys and accelerates AES/ECC/TRNG in tamper-resistant hardware; TrustZone splits CPU execution into Secure World (OP-TEE) and Normal World (Linux/AOSP)." },
-  { track: "automotive", q: "How does AUTOSAR SecOC (Secure Onboard Communication) prevent replay and spoofing attacks on CAN/CAN-FD buses?", hint: "Appends a truncated CMAC (Message Authentication Code) and Freshness Value (trip/reset counter) to each PDU so receivers reject replayed or forged frames." },
-  { track: "automotive", q: "What are the primary security vulnerabilities of classic CAN bus, and how does Automotive Ethernet (SOME/IP, DoIP) change the threat landscape?", hint: "Classic CAN lacks encryption, authentication, and source addressing (broadcast). Automotive Ethernet introduces IP-based attack surfaces requiring VLAN segmentation, MACsec, and TLS/DTLS." },
-  { track: "linux", q: "How do you harden an Embedded Linux root filesystem (read-only rootfs, stripping symbols, disabling unused kernel modules, sysctl tuning)?", hint: "Mount / as read-only SquashFS, remove gcc/gdb/shells in production builds, disable module loading (kernel.modules_disabled=1), and enforce non-root service users." },
-  { track: "linux", q: "Explain Linux capabilities (CAP_NET_RAW, CAP_SYS_ADMIN) and how you use them to drop root privileges for embedded services." },
-  { track: "aosp", q: "How does Android isolate applications using UID/GID sandboxing alongside SELinux domains (untrusted_app vs. system_app)?" },
-  { track: "aosp", q: "What security checks are validated during Android Compatibility Test Suite (CTS) and VTS security runs?" },
-  { track: "forensics", q: "How do you triage and prioritize CVEs in an embedded Linux BSP or AOSP build when hundreds of advisories are published?" },
-  { track: "forensics", q: "Explain how you integrate SonarQube static application security testing (SAST) into a Jenkins CI/CD pipeline to block insecure C/C++ commits." },
-  { track: "linux", q: "What are common memory corruption vulnerabilities in C/C++ embedded firmware (buffer overflow, UAF, integer overflow) and compiler mitigations (ASLR, Stack Canaries, NX)?" },
-  { track: "automotive", q: "How do you secure Over-The-Air (OTA) firmware updates for connected vehicles (signing, anti-rollback counters, encrypted payloads)?" },
-  { track: "automotive", q: "Explain the difference between symmetric (AES-GCM) and asymmetric (ECDSA, RSA) cryptography in vehicle-to-cloud TLS communication." },
-  { track: "aosp", q: "How do you secure inter-process communication (IPC) in Android Binder or Linux D-Bus against unauthorized callers?" },
-  { track: "automotive", q: "What is the UNECE WP.29 R155 regulation, and how does a Cybersecurity Management System (CSMS) relate to ISO/SAE 21434?" },
-  { track: "automotive", q: "How do you conduct a STRIDE threat model on an In-Vehicle Infotainment (IVI) head unit with Bluetooth, Wi-Fi, and cellular connectivity?" },
-  { track: "automotive", q: "How do you secure debug interfaces (JTAG, UART, ADB) before transitioning an ECU from engineering sample to mass production?" },
-  { track: "automotive", q: "Explain how TLS mutual authentication (mTLS) and certificate pinning protect telematics control units (TCUs)." },
-  { track: "forensics", q: "What steps do you take during L2 Incident Response when an anomalous outbound connection is flagged on a production Linux system?" },
-  { track: "forensics", q: "How do you extract and correlate Indicators of Compromise (IOCs) from system logs, journald, and network captures?" },
-  { track: "linux", q: "Explain how Linux namespaces and cgroups contribute to container and process isolation on modern automotive hypervisors." },
-  { track: "linux", q: "What is the difference between DAC (Discretionary Access Control) and MAC (Mandatory Access Control) in Linux security?" },
-  { track: "linux", q: "How do you protect cryptographic keys stored on an embedded device without dedicated secure element hardware?" },
-  { track: "aosp", q: "What are common attack vectors against Android Automotive OS (AAOS) third-party apps and how do you mitigate privilege escalation?" },
-  { track: "linux", q: "How do you configure kernel sysctl parameters (e.g., kptr_restrict, dmesg_restrict, randomize_va_space) to harden a production kernel?" },
-  { track: "automotive", q: "Explain how Intrusion Detection and Prevention Systems (IDPS) work inside modern vehicle architectures." },
-  { track: "forensics", q: "How do you verify third-party open-source software (OSS) components for license and CVE risks using SBOMs?" },
-  { track: "forensics", q: "What is fuzz testing (e.g., AFL, libFuzzer), and where do you apply it in embedded protocol parsers?" },
-  { track: "forensics", q: "How do you analyze a core dump or crash log to determine if a segmentation fault is an exploitable security bug?" },
-  { track: "forensics", q: "Explain how ARP, DNS, and DHCP spoofing occur on local networks and how firewall/switch rules prevent them." },
-  { track: "forensics", q: "What is a Security Incident Event Management (SIEM) workflow for embedded/IoT fleet telemetry?" },
-  { track: "automotive", q: "How do you design secure key provisioning and certificate rotation during ECU manufacturing?" },
-  { track: "automotive", q: "Explain the concept of Defense-in-Depth applied to a connected vehicle gateway architecture." },
-  { track: "linux", q: "How do you audit SUID/SGID binaries and world-writable files on a hardened Linux image?" },
-  { track: "forensics", q: "What is the difference between a vulnerability assessment, a penetration test, and a red-team exercise?" },
-  { track: "aosp", q: "How do you secure BLE (Bluetooth Low Energy) pairing and key exchange in automotive keyless entry or infotainment?" },
-  { track: "linux", q: "Explain how iptables connection tracking (conntrack) works and how stateful firewall rules differ from stateless rules." },
-  { track: "forensics", q: "How do you validate that a patched CVE is truly mitigated in the compiled binary and not just bypassed?" },
-  { track: "linux", q: "What are the security implications of dynamic linker features like LD_PRELOAD, and how do you prevent library hijacking?" },
-  { track: "automotive", q: "How do you document residual risk and cybersecurity rationale when a vulnerability cannot be immediately patched before SOP (Start of Production)?" }
+  { id: "t1", track: "automotive", q: "Walk through the end-to-end Threat Analysis and Risk Assessment (TARA) methodology under ISO/SAE 21434.", hint: "Cover: Item Definition → Asset Identification & Cybersecurity Properties (CIA) → Threat Scenarios (STRIDE) → Impact Rating (SFOP: Safety, Financial, Operational, Privacy) → Attack Path Analysis → Attack Feasibility Rating → Risk Value & Treatment Decision." },
+  { id: "t2", track: "automotive", q: "How do you determine Attack Feasibility Ratings (Attack Potential vs. CVSS-based vs. Attack Vector) in an automotive TARA?", hint: "Explain ISO 21434 Annex G: Attack Potential sums Elapsed Time, Specialist Expertise, Knowledge of Item, Window of Opportunity, and Equipment (Very Low to High)." },
+  { id: "t3", track: "automotive", q: "Explain the difference between Cybersecurity Goals, Cybersecurity Requirements, and Cybersecurity Controls in ISO/SAE 21434.", hint: "Goals = high-level objectives tied to 'Reduce' risk treatment; Requirements = technical specifications allocated to components; Controls = concrete implementations (e.g., SecOC, Secure Boot)." },
+  { id: "t4", track: "aosp", q: "How do you write and debug a custom SELinux Mandatory Access Control (MAC) policy for a new daemon in AOSP or Embedded Linux?", hint: "Mention defining domain/type in .te, labeling binary in file_contexts, running in permissive mode, collecting dmesg/logcat avc: denied logs, and translating with audit2allow while avoiding broad rules." },
+  { id: "t5", track: "aosp", q: "What is the difference between SELinux Permissive mode and Enforcing mode, and how do you resolve AVC denial logs cleanly without over-permitting?", hint: "Permissive logs denials without blocking; Enforcing blocks and logs. Resolve cleanly by granting least-privilege permissions to specific target types rather than blanket wildcards." },
+  { id: "t6", track: "aosp", q: "How does Android's Verified Boot (AVB) and dm-verity protect the OS partition from persistent rootkits?", hint: "AVB establishes a cryptographic chain of trust from hardware RoT → Bootloader → boot/vbmeta partitions; dm-verity validates block-level hashes of system/vendor partitions at runtime." },
+  { id: "t7", track: "linux", q: "Explain the architecture of Linux netfilter and the packet traversal order across PREROUTING, INPUT, FORWARD, OUTPUT, and POSTROUTING chains.", hint: "Incoming local packet: PREROUTING → Routing Decision → INPUT → Local Process. Routed packet: PREROUTING → FORWARD → POSTROUTING. Local outbound: OUTPUT → POSTROUTING." },
+  { id: "t8", track: "linux", q: "How do you configure iptables/nftables rules to mitigate SYN flood DDoS attacks and IP spoofing on an embedded gateway?", hint: "Enable net.ipv4.tcp_syncookies=1, use hashlimit/limit modules on --syn packets, drop INVALID connection states via conntrack, and drop bogon/spoofed source IPs." },
+  { id: "t9", track: "linux", q: "What is Reverse Path Filtering (rp_filter) and SECMARK in Linux networking, and how do they harden an automotive ECU?", hint: "rp_filter drops packets whose source IP isn't reachable via the incoming interface (anti-spoofing); SECMARK attaches SELinux security contexts to packets for fine-grained socket access control." },
+  { id: "t10", track: "forensics", q: "How do you analyze a PCAP capture in Wireshark or tcpdump to detect ARP spoofing, MITM attacks, or anomalous C2 beaconing?", hint: "Check duplicate MAC-to-IP mappings (arp.duplicate-address-detected), anomalous TLS handshakes/self-signed certs, DNS tunneling patterns, and periodic fixed-interval outbound TCP flows." },
+  { id: "t11", track: "linux", q: "Explain how Secure Boot works from BootROM (Root of Trust) through U-Boot/BL2 to the Linux kernel image verification.", hint: "Immutable BootROM verifies BL2 signature via fused eFuse public key hash → BL2 verifies U-Boot → U-Boot verifies signed FIT image (kernel + DTB + initramfs)." },
+  { id: "t12", track: "automotive", q: "What is the role of a Hardware Security Module (HSM) or Trusted Execution Environment (TEE / ARM TrustZone) in automotive ECUs?", hint: "HSM isolates cryptographic keys and accelerates AES/ECC/TRNG in tamper-resistant hardware; TrustZone splits CPU execution into Secure World (OP-TEE) and Normal World (Linux/AOSP)." },
+  { id: "t13", track: "automotive", q: "How does AUTOSAR SecOC (Secure Onboard Communication) prevent replay and spoofing attacks on CAN/CAN-FD buses?", hint: "Appends a truncated CMAC (Message Authentication Code) and Freshness Value (trip/reset counter) to each PDU so receivers reject replayed or forged frames." },
+  { id: "t14", track: "automotive", q: "What are the primary security vulnerabilities of classic CAN bus, and how does Automotive Ethernet (SOME/IP, DoIP) change the threat landscape?", hint: "Classic CAN lacks encryption, authentication, and source addressing (broadcast). Automotive Ethernet introduces IP-based attack surfaces requiring VLAN segmentation, MACsec, and TLS/DTLS." },
+  { id: "t15", track: "linux", q: "How do you harden an Embedded Linux root filesystem (read-only rootfs, stripping symbols, disabling unused kernel modules, sysctl tuning)?", hint: "Mount / as read-only SquashFS, remove gcc/gdb/shells in production builds, disable module loading (kernel.modules_disabled=1), and enforce non-root service users." },
+  { id: "t16", track: "linux", q: "Explain Linux capabilities (CAP_NET_RAW, CAP_SYS_ADMIN) and how you use them to drop root privileges for embedded services." },
+  { id: "t17", track: "aosp", q: "How does Android isolate applications using UID/GID sandboxing alongside SELinux domains (untrusted_app vs. system_app)?" },
+  { id: "t18", track: "aosp", q: "What security checks are validated during Android Compatibility Test Suite (CTS) and VTS security runs?" },
+  { id: "t19", track: "forensics", q: "How do you triage and prioritize CVEs in an embedded Linux BSP or AOSP build when hundreds of advisories are published?" },
+  { id: "t20", track: "forensics", q: "Explain how you integrate SonarQube static application security testing (SAST) into a Jenkins CI/CD pipeline to block insecure C/C++ commits." },
+  { id: "t21", track: "linux", q: "What are common memory corruption vulnerabilities in C/C++ embedded firmware (buffer overflow, UAF, integer overflow) and compiler mitigations (ASLR, Stack Canaries, NX)?" },
+  { id: "t22", track: "automotive", q: "How do you secure Over-The-Air (OTA) firmware updates for connected vehicles (signing, anti-rollback counters, encrypted payloads)?" },
+  { id: "t23", track: "automotive", q: "Explain the difference between symmetric (AES-GCM) and asymmetric (ECDSA, RSA) cryptography in vehicle-to-cloud TLS communication." },
+  { id: "t24", track: "aosp", q: "How do you secure inter-process communication (IPC) in Android Binder or Linux D-Bus against unauthorized callers?" },
+  { id: "t25", track: "automotive", q: "What is the UNECE WP.29 R155 regulation, and how does a Cybersecurity Management System (CSMS) relate to ISO/SAE 21434?" },
+  { id: "t26", track: "automotive", q: "How do you conduct a STRIDE threat model on an In-Vehicle Infotainment (IVI) head unit with Bluetooth, Wi-Fi, and cellular connectivity?" },
+  { id: "t27", track: "automotive", q: "How do you secure debug interfaces (JTAG, UART, ADB) before transitioning an ECU from engineering sample to mass production?" },
+  { id: "t28", track: "automotive", q: "Explain how TLS mutual authentication (mTLS) and certificate pinning protect telematics control units (TCUs)." },
+  { id: "t29", track: "forensics", q: "What steps do you take during L2 Incident Response when an anomalous outbound connection is flagged on a production Linux system?" },
+  { id: "t30", track: "forensics", q: "How do you extract and correlate Indicators of Compromise (IOCs) from system logs, journald, and network captures?" },
+  { id: "t31", track: "linux", q: "Explain how Linux namespaces and cgroups contribute to container and process isolation on modern automotive hypervisors." },
+  { id: "t32", track: "linux", q: "What is the difference between DAC (Discretionary Access Control) and MAC (Mandatory Access Control) in Linux security?" },
+  { id: "t33", track: "linux", q: "How do you protect cryptographic keys stored on an embedded device without dedicated secure element hardware?" },
+  { id: "t34", track: "aosp", q: "What are common attack vectors against Android Automotive OS (AAOS) third-party apps and how do you mitigate privilege escalation?" },
+  { id: "t35", track: "linux", q: "How do you configure kernel sysctl parameters (e.g., kptr_restrict, dmesg_restrict, randomize_va_space) to harden a production kernel?" },
+  { id: "t36", track: "automotive", q: "Explain how Intrusion Detection and Prevention Systems (IDPS) work inside modern vehicle architectures." },
+  { id: "t37", track: "forensics", q: "How do you verify third-party open-source software (OSS) components for license and CVE risks using SBOMs?" },
+  { id: "t38", track: "forensics", q: "What is fuzz testing (e.g., AFL, libFuzzer), and where do you apply it in embedded protocol parsers?" },
+  { id: "t39", track: "forensics", q: "How do you analyze a core dump or crash log to determine if a segmentation fault is an exploitable security bug?" },
+  { id: "t40", track: "forensics", q: "Explain how ARP, DNS, and DHCP spoofing occur on local networks and how firewall/switch rules prevent them." },
+  { id: "t41", track: "forensics", q: "What is a Security Incident Event Management (SIEM) workflow for embedded/IoT fleet telemetry?" },
+  { id: "t42", track: "automotive", q: "How do you design secure key provisioning and certificate rotation during ECU manufacturing?" },
+  { id: "t43", track: "automotive", q: "Explain the concept of Defense-in-Depth applied to a connected vehicle gateway architecture." },
+  { id: "t44", track: "linux", q: "How do you audit SUID/SGID binaries and world-writable files on a hardened Linux image?" },
+  { id: "t45", track: "forensics", q: "What is the difference between a vulnerability assessment, a penetration test, and a red-team exercise?" },
+  { id: "t46", track: "aosp", q: "How do you secure BLE (Bluetooth Low Energy) pairing and key exchange in automotive keyless entry or infotainment?" },
+  { id: "t47", track: "linux", q: "Explain how iptables connection tracking (conntrack) works and how stateful firewall rules differ from stateless rules." },
+  { id: "t48", track: "forensics", q: "How do you validate that a patched CVE is truly mitigated in the compiled binary and not just bypassed?" },
+  { id: "t49", track: "linux", q: "What are the security implications of dynamic linker features like LD_PRELOAD, and how do you prevent library hijacking?" },
+  { id: "t50", track: "automotive", q: "How do you document residual risk and cybersecurity rationale when a vulnerability cannot be immediately patched before SOP (Start of Production)?" }
 ];
 
 const behavioralBank = [
@@ -1672,14 +1905,33 @@ function generateQuestions() {
   const techList = document.getElementById('technicalQuestionsList');
   const behavList = document.getElementById('behavioralQuestionsList');
 
-  techList.innerHTML = filteredTech.map(item => `
-    <li>
-      <div>${item.q}</div>
-      ${item.hint ? `<div class="q-hint"><strong>💡 Key Points:</strong> ${item.hint}</div>` : ''}
-    </li>
-  `).join('');
+  techList.innerHTML = filteredTech.map(item => {
+    const saved = getStarNote(item.id);
+    return `
+      <li>
+        <div>${item.q}</div>
+        ${item.hint ? `<div class="q-hint"><strong>💡 Key Points:</strong> ${item.hint}</div>` : ''}
+        <button class="star-note-toggle" onclick="toggleStarNote('${item.id}')">✍️ My Answer Notes ${saved ? '(Saved ✓)' : ''}</button>
+        <div class="star-note-box" id="note-box-${item.id}" style="${saved ? 'display:block;' : ''}">
+          <textarea placeholder="Write your key points / example here (auto-saved)..." oninput="saveStarNote('${item.id}', this.value)">${saved}</textarea>
+        </div>
+      </li>
+    `;
+  }).join('');
 
-  behavList.innerHTML = behavioralBank.map(q => `<li>${q}</li>`).join('');
+  behavList.innerHTML = behavioralBank.map((q, idx) => {
+    const bKey = 'b' + (idx + 1);
+    const saved = getStarNote(bKey);
+    return `
+      <li>
+        <div>${q}</div>
+        <button class="star-note-toggle" onclick="toggleStarNote('${bKey}')">✍️ My STAR Story ${saved ? '(Saved ✓)' : ''}</button>
+        <div class="star-note-box" id="note-box-${bKey}" style="${saved ? 'display:block;' : ''}">
+          <textarea placeholder="Situation → Task → Action → Result (auto-saved)..." oninput="saveStarNote('${bKey}', this.value)">${saved}</textarea>
+        </div>
+      </li>
+    `;
+  }).join('');
 
   document.getElementById('techHeading').innerText = `🛡️ Technical Questions (${filteredTech.length} Shown)`;
   document.getElementById('interviewHeader').innerText = `🎯 Cybersecurity Interview Bank — ${company}`;
@@ -1752,6 +2004,41 @@ function calculateHike() {
   document.getElementById('resGain').innerText = `${gain >= 0 ? '+' : ''}${gain.toFixed(2)} LPA`;
 }
 calculateHike();
+
+// POINT 5: SIDE-BY-SIDE 2-OFFER COMPARATOR
+function compareOffers() {
+  const nameA = document.getElementById('offA_name').value.trim() || "Offer A";
+  const baseA = parseFloat(document.getElementById('offA_base').value) || 0;
+  const rsuA = parseFloat(document.getElementById('offA_rsu').value) || 0;
+  const joinA = parseFloat(document.getElementById('offA_join').value) || 0;
+  const modeA = parseInt(document.getElementById('offA_mode').value) || 1;
+
+  const nameB = document.getElementById('offB_name').value.trim() || "Offer B";
+  const baseB = parseFloat(document.getElementById('offB_base').value) || 0;
+  const rsuB = parseFloat(document.getElementById('offB_rsu').value) || 0;
+  const joinB = parseFloat(document.getElementById('offB_join').value) || 0;
+  const modeB = parseInt(document.getElementById('offB_mode').value) || 1;
+
+  const tcA = baseA + rsuA;
+  const tcB = baseB + rsuB;
+  const yr1A = tcA + joinA;
+  const yr1B = tcB + joinB;
+
+  document.getElementById('offA_tc').innerText = `${tcA.toFixed(2)} LPA (Yr 1: ${yr1A.toFixed(2)} LPA)`;
+  document.getElementById('offB_tc').innerText = `${tcB.toFixed(2)} LPA (Yr 1: ${yr1B.toFixed(2)} LPA)`;
+
+  const diff = Math.abs(tcA - tcB).toFixed(2);
+  let verdict = "";
+  if (tcA > tcB) {
+    verdict = `🏆 Recommendation: ${nameA} leads by +${diff} LPA/year in recurring Total Compensation (${tcA.toFixed(2)} LPA vs. ${tcB.toFixed(2)} LPA). You can also use ${nameA}'s offer letter to ask ${nameB} to match or beat ${yr1A.toFixed(2)} LPA Year-1 TC.`;
+  } else if (tcB > tcA) {
+    verdict = `🏆 Recommendation: ${nameB} leads by +${diff} LPA/year in recurring Total Compensation (${tcB.toFixed(2)} LPA vs. ${tcA.toFixed(2)} LPA). Use ${nameB}'s offer to negotiate higher base/RSUs from ${nameA}.`;
+  } else {
+    verdict = `⚖️ Both offers are tied at ${tcA.toFixed(2)} LPA recurring TC — choose based on Year-1 joining bonus (${yr1A.toFixed(2)} vs. ${yr1B.toFixed(2)} LPA) and ${modeA >= modeB ? nameA : nameB}'s work-mode flexibility.`;
+  }
+  document.getElementById('offerVerdictBox').innerText = verdict;
+}
+compareOffers();
 </script>
 </body>
 </html>
