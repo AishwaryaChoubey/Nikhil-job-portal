@@ -45,7 +45,7 @@
   .tab-content.active { display: block; }
 
   .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); margin-bottom: 20px; }
   .card h3 { font-size: 1.15rem; color: var(--text); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 
@@ -144,9 +144,11 @@
   .q-bank-container li { margin-bottom: 10px; }
   .q-hint { background: #f1f5f9; border-left: 3px solid var(--accent); padding: 6px 10px; margin-top: 4px; font-size: 0.8rem; color: #334155; border-radius: 0 6px 6px 0; }
 
-  .calc-result-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 10px; }
+  .calc-result-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 10px; }
   .calc-stat span { font-size: 0.78rem; color: #166534; display: block; }
   .calc-stat strong { font-size: 1.35rem; color: #15803d; }
+
+  .script-box { background: #eff6ff; border-left: 4px solid var(--primary-light); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 0.88rem; }
 
   footer.tips-section { margin-top: 40px; background: #0f172a; color: #e2e8f0; border-radius: 12px; padding: 24px; }
   footer.tips-section h4 { color: #38bdf8; margin-bottom: 12px; font-size: 1.05rem; }
@@ -182,7 +184,7 @@
     <button class="tab-btn" id="tab-btn-ai-prompts" onclick="showTab('ai-prompts')">🤖 3. AI Prompt Studio (11)</button>
     <button class="tab-btn" id="tab-btn-companies" onclick="showTab('companies')">🏢 4. Target Companies (All India)</button>
     <button class="tab-btn" id="tab-btn-interview-studio" onclick="showTab('interview-studio')">💡 5. Interview Studio (100 Qs)</button>
-    <button class="tab-btn" id="tab-btn-salary" onclick="showTab('salary')">💰 6. Salary & Hike Calculator</button>
+    <button class="tab-btn" id="tab-btn-salary" onclick="showTab('salary')">💰 6. Product-GCC Pay & Anti-Anchoring Guide</button>
   </div>
 
   <!-- TAB 1: LIVE SEARCH & TOP 30 RESUME-MATCHED JOBS -->
@@ -709,8 +711,8 @@
             <div class="prompt-header">
               <div class="prompt-num">10</div>
               <div class="prompt-title">
-                <h4>Compensation Strategy Planner</h4>
-                <p>Negotiation scripts for niche security roles</p>
+                <h4>Anti-Anchoring Compensation Planner</h4>
+                <p>Scripts to break percentage caps & target 28–45+ LPA TC</p>
               </div>
             </div>
             <div class="prompt-box" id="pbox-9"></div>
@@ -728,7 +730,7 @@
               <div class="prompt-num">11</div>
               <div class="prompt-title">
                 <h4>Offer Decision Analyzer</h4>
-                <p>Compare competing offers objectively</p>
+                <p>Compare Base + RSUs + Bonus across competing offers</p>
               </div>
             </div>
             <div class="prompt-box" id="pbox-10"></div>
@@ -818,88 +820,106 @@
     </div>
   </div>
 
-  <!-- TAB 6: SALARY & HIKE CALCULATOR -->
+  <!-- TAB 6: PRODUCT-GCC PAY & ANTI-ANCHORING GUIDE -->
   <div id="salary" class="tab-content">
     <div class="card">
-      <h3>🧮 Offer Hike & Fixed-Pay Evaluator</h3>
+      <h3>🧮 Total Compensation (Base + RSUs + Bonus) & Hike Evaluator</h3>
       <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 14px;">
-        Compare any new offer against Nikhil's current fixed compensation to verify the real fixed-pay jump and monthly in-hand impact.
+        Tier-1 Product GCCs and security companies pay in <strong>Base + Annual Vested RSUs + Performance/Sign-On Bonus</strong> rather than flat percentage hikes over previous pay. Calculate true Total Compensation below:
       </p>
       <div class="grid-3">
         <div>
-          <label>Current Fixed CTC (LPA):</label>
-          <input type="number" id="currCtc" value="12" step="0.5" oninput="calculateHike()">
+          <label>Current Total CTC (LPA):</label>
+          <input type="number" id="currCtc" value="15" step="0.5" oninput="calculateHike()">
         </div>
         <div>
-          <label>Offered Total CTC (LPA):</label>
-          <input type="number" id="offCtc" value="18.5" step="0.5" oninput="calculateHike()">
+          <label>Offered Base + Bonus (LPA):</label>
+          <input type="number" id="offBase" value="26" step="0.5" oninput="calculateHike()">
         </div>
         <div>
-          <label>Offered Variable / Bonus %:</label>
-          <input type="number" id="varPct" value="10" min="0" max="50" oninput="calculateHike()">
+          <label>Annual Vested RSUs / Stock (LPA):</label>
+          <input type="number" id="offRsu" value="8" step="0.5" oninput="calculateHike()">
+        </div>
+        <div>
+          <label>Year-1 Joining / Sign-On Bonus (LPA):</label>
+          <input type="number" id="offSignon" value="3" step="0.5" oninput="calculateHike()">
         </div>
       </div>
       <div class="calc-result-box">
         <div class="calc-stat">
-          <span>Offered Guaranteed Fixed</span>
-          <strong id="resFixed">16.65 LPA</strong>
+          <span>Recurring Annual TC (Base + RSU)</span>
+          <strong id="resRecurring">34.00 LPA</strong>
         </div>
         <div class="calc-stat">
-          <span>True Hike on Fixed Pay</span>
-          <strong id="resHike">+38.8%</strong>
+          <span>Year-1 Total Comp (with Sign-On)</span>
+          <strong id="resYear1">37.00 LPA</strong>
         </div>
         <div class="calc-stat">
-          <span>Annual Fixed Gain</span>
-          <strong id="resGain">+4.65 LPA</strong>
+          <span>True Jump Over Current CTC</span>
+          <strong id="resHike">+126.7%</strong>
         </div>
         <div class="calc-stat">
-          <span>Est. Monthly Pre-Tax Gain</span>
-          <strong id="resMonthly">+₹38,750 / mo</strong>
+          <span>Recurring Annual Gain</span>
+          <strong id="resGain">+19.00 LPA</strong>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <h3>📊 Indian Market Benchmarks (3+ Yrs Exp in Automotive & Embedded Cybersecurity)</h3>
+      <h3>🚀 Tier-1 Product GCC & Cybersecurity Market Bands (India — Base vs. Total Comp)</h3>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+        Never anchor to a 30% service-firm hike. Product GCCs and funded security companies pay standardized level bands regardless of previous CTC.
+      </p>
       <table>
         <thead>
           <tr>
-            <th>Role Band</th>
-            <th>Target CTC Range (BLR / Pune / Hyd)</th>
-            <th>Profile Alignment Strategy</th>
+            <th>Company Tier & Target Role</th>
+            <th>Base Cash Range</th>
+            <th>Total Comp (Base + RSUs + Bonus)</th>
+            <th>How to Position Nikhil's Niche</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Automotive Cybersecurity Engineer (ISO 21434)</strong></td>
-            <td>14 – 22 LPA</td>
-            <td>Highlight hands-on TARA execution, ISO/SAE 21434 compliance, and ECU/IVI threat modeling.</td>
+            <td><strong>Pure-Play Security & Cloud Product GCCs</strong><br><span style="font-size:0.78rem; color:var(--text-muted);">Palo Alto Networks, CrowdStrike, Cloudflare, Cisco</span></td>
+            <td>22 – 32 LPA</td>
+            <td><strong>30 – 48+ LPA</strong></td>
+            <td>Anchor on Linux kernel hardening, iptables/netfilter DDoS defense, CVE triage & packet forensics.</td>
           </tr>
           <tr>
-            <td><strong>Embedded Linux / AOSP Security Engineer</strong></td>
-            <td>16 – 24 LPA</td>
-            <td>Emphasize SELinux MAC policy authoring, Android OS internals, and kernel hardening.</td>
+            <td><strong>Semiconductor & Connected OS Giants</strong><br><span style="font-size:0.78rem; color:var(--text-muted);">Qualcomm, NVIDIA, NXP, Samsung R&D, MediaTek</span></td>
+            <td>20 – 30 LPA</td>
+            <td><strong>28 – 45+ LPA</strong></td>
+            <td>Highlight rare combo of AOSP internals, custom SELinux MAC policies, Verified Boot & ISO 21434.</td>
           </tr>
           <tr>
-            <td><strong>Product Security / DevSecOps Engineer</strong></td>
-            <td>15 – 23 LPA</td>
-            <td>Leverage CVE triage, SonarQube static analysis integration, and CI/CD security gates.</td>
+            <td><strong>Global Automotive OEM R&D Centers</strong><br><span style="font-size:0.78rem; color:var(--text-muted);">Mercedes-Benz R&D (MBRDI), Renault Nissan, Volvo</span></td>
+            <td>18 – 26 LPA</td>
+            <td><strong>22 – 32 LPA</strong></td>
+            <td>Lead with end-to-end TARA ownership, ISO/SAE 21434 compliance & UNECE R155 CSMS readiness.</td>
           </tr>
           <tr>
-            <td><strong>Global Remote / Tier-1 Security Product GCC</strong></td>
-            <td>22 – 32+ LPA</td>
-            <td>Combine embedded OS security depth with network forensics (Wireshark, iptables, DDoS/MITM defense).</td>
+            <td><strong>Global Remote Security Engineering</strong><br><span style="font-size:0.78rem; color:var(--text-muted);">Canonical, GitLab, Upstream Security, Argus</span></td>
+            <td>25 – 42 LPA</td>
+            <td><strong>28 – 50+ LPA</strong></td>
+            <td>Quote USD/global band benchmarks for remote Linux/Embedded security engineers.</td>
           </tr>
         </tbody>
       </table>
 
-      <h4 style="margin-top: 20px; margin-bottom: 8px;">Key Salary Negotiation Reminders for Niche Security Roles</h4>
-      <ul style="font-size: 0.88rem; line-height: 1.8; padding-left: 20px;">
-        <li><strong>Leverage Niche Scarcity:</strong> Engineers who know <em>both</em> ISO/SAE 21434 TARA and low-level SELinux/AOSP hardening are rare—price your niche skill set accordingly.</li>
-        <li><strong>Quote a Clear Range:</strong> Say: <em>"Based on market benchmarks for Automotive & Embedded Security engineers with ISO 21434 and AOSP/SELinux experience, I am targeting 18 to 23 LPA fixed."</em></li>
-        <li><strong>Compare Fixed CTC vs. Variable:</strong> Always anchor on guaranteed fixed pay; watch out for inflated variable components in Tier-1 service firms.</li>
-        <li><strong>Factor in Product GCC Perks:</strong> Tier-1 product GCCs (Qualcomm, Mercedes-Benz R&D, Palo Alto Networks) often include RSUs, annual bonuses, and relocation/joining bonuses.</li>
-      </ul>
+      <h4 style="margin-top: 22px; margin-bottom: 10px;">🗣️ Anti-Anchoring Scripts (How to Break Percentage-Hike Caps on HR Calls)</h4>
+      <div class="script-box">
+        <strong>1. When HR asks "What is your current CTC?" on the first call:</strong><br>
+        <em>"Before sharing numbers, could you share the approved compensation band for this level? I want to make sure we’re aligned on role scope and engineering band first."</em>
+      </div>
+      <div class="script-box">
+        <strong>2. When stating your expected compensation (Never quote a % hike):</strong><br>
+        <em>"I’m evaluating opportunities based on market bands for Automotive & Embedded Security engineers with hands-on ISO/SAE 21434 TARA, AOSP, and SELinux hardening experience—rather than a percentage over my current package. For this scope, I’m targeting 30 to 36 LPA Total Compensation, flexible across base, annual bonus, and RSUs."</em>
+      </div>
+      <div class="script-box">
+        <strong>3. When HR says "That's a big jump from your current CTC":</strong><br>
+        <em>"My current package reflects an earlier service-tier structure, whereas my day-to-day work covers specialized ISO 21434 threat modeling and low-level SELinux/AOSP hardening—skills that product teams benchmark at the 30+ LPA level. I’m happy to let my technical rounds demonstrate that level of impact."</em>
+      </div>
     </div>
   </div>
 </div>
@@ -909,9 +929,9 @@
   <footer class="tips-section">
     <h4>💡 High-Impact Cybersecurity Job Hunting Tips & Application Strategy</h4>
     <ul>
-      <li><strong>Multi-City Advantage:</strong> Pune (Hinjewadi/Chakan), Hyderabad (HITEC City), and Chennai (OMR) host massive Automotive & Semiconductor R&D centers—use the <em>"Other Cities of India"</em> filter to unlock 2x more ISO 21434 & Embedded Security openings.</li>
-      <li><strong>ATS Calibration:</strong> Paste any promising JD into Tab 2, check missing keywords, and click <em>"Tailor Resume in AI Prompt Studio"</em> to generate a targeted resume draft in seconds.</li>
-      <li><strong>Referral Bypass:</strong> Use Tab 4's <em>"Find Hiring Managers"</em> links + Tab 3's <em>Employee Referral Request</em> prompt for Bosch, Harman, Qualcomm, KPIT, and Continental.</li>
+      <li><strong>Target Band-Based Employers:</strong> Prioritize Product GCCs and Semiconductor/Security firms (Qualcomm, NVIDIA, Palo Alto, CrowdStrike, MBRDI, Harman) that pay standardized level bands (28–45+ LPA TC) rather than percentage-capped service firms.</li>
+      <li><strong>Multi-City Advantage:</strong> Pune (Hinjewadi), Hyderabad (HITEC City), and Chennai (OMR) host massive Automotive & Semiconductor R&D centers—use the <em>"Other Cities of India"</em> filter in Tab 1 to unlock 2x more openings.</li>
+      <li><strong>Referral Bypass:</strong> Use Tab 4's <em>"Hiring Managers ↗"</em> links + Tab 3's <em>Employee Referral Request</em> prompt to get directly into technical interview loops.</li>
     </ul>
   </footer>
 </div>
@@ -920,7 +940,7 @@
 let lastMissingKeywords = [];
 let quickCityMode = 'All';
 
-// CURATED POOL OF 36 HIGH-FIT ROLES ACROSS BENGALURU, OTHER CITIES OF INDIA & REMOTE (SCORED DYNAMICALLY AGAINST RESUME)
+// CURATED POOL OF 36 HIGH-FIT ROLES ACROSS BENGALURU, OTHER CITIES OF INDIA & REMOTE
 const roleOpportunitiesPool = [
   // BENGALURU ROLES
   { title: "Automotive Cybersecurity Engineer (ISO 21434)", company: "Harman International", city: "Bengaluru", region: "Bengaluru", skills: ["iso 21434", "tara", "aosp", "automotive", "ecu", "threat modeling"], query: "Automotive Cybersecurity Engineer Harman" },
@@ -1088,11 +1108,9 @@ function renderTop30Jobs() {
   else if (windowVal === "3d") { linkedinTime = "r259200"; naukriDays = "3"; }
   else if (windowVal === "1m") { linkedinTime = "r2592000"; naukriDays = "30"; }
 
-  // Score every role against Nikhil's active resume + active search filters
   const scored = roleOpportunitiesPool.map(job => {
     const matchedSkills = job.skills.filter(s => resumeLower.includes(s));
     let baseScore = job.skills.length > 0 ? Math.round((matchedSkills.length / job.skills.length) * 100) : 75;
-    // Boost if matches selected dropdown role or custom keyword
     if (selectedRole !== "All Security Roles" && job.title.toLowerCase().includes(selectedRole.split(' ')[0].toLowerCase())) {
       baseScore = Math.min(99, baseScore + 8);
     }
@@ -1102,14 +1120,11 @@ function renderTop30Jobs() {
     return { ...job, score: Math.max(68, baseScore), matchedSkills };
   });
 
-  // Filter by location dropdown or quick pill
   const filtered = scored.filter(job => {
-    // Quick pill override if not 'All'
     if (quickCityMode === 'Bengaluru' && job.region !== 'Bengaluru') return false;
     if (quickCityMode === 'Other Cities' && job.region !== 'Other Cities') return false;
     if (quickCityMode === 'Remote' && job.region !== 'Remote') return false;
 
-    // Main location dropdown filter when quick pill is 'All'
     if (quickCityMode === 'All') {
       if (locDropdown.includes('Bengaluru') && job.region !== 'Bengaluru') return false;
       if (locDropdown === 'Other Cities of India' && job.region !== 'Other Cities') return false;
@@ -1123,7 +1138,6 @@ function renderTop30Jobs() {
     return true;
   });
 
-  // Sort by highest resume match score and take Top 30
   const top30 = filtered.sort((a, b) => b.score - a.score).slice(0, 30);
 
   document.getElementById('top30Subtitle').innerText =
@@ -1193,7 +1207,7 @@ ${jd}
 ${resume}`;
 
   document.getElementById('pbox-2').innerText = 
-`Rewrite my LinkedIn headline, 'About' summary, and core experience bullet points to attract technical recruiters for "${role}" positions across Bengaluru, Pune, Hyderabad, and Chennai, using keywords from my background:
+`Rewrite my LinkedIn headline, 'About' summary, and core experience bullet points to attract technical recruiters for "${role}" positions across Tier-1 Product GCCs and Security companies in Bengaluru, Pune, Hyderabad, and Chennai, using keywords from my background:
 
 [MY BACKGROUND & SECURITY METRICS]
 ${resume}`;
@@ -1238,19 +1252,19 @@ ${jd}
 ${resume}`;
 
   document.getElementById('pbox-9').innerText = 
-`Create a salary negotiation script for "${role}" at ${company}. I have 3+ years of specialized experience in Automotive Cybersecurity (ISO 21434), Embedded Linux, and AOSP/SELinux security. Give me scripts for:
-1. When the recruiter asks my expected CTC early in the process.
-2. When the initial offer comes in below market benchmark for niche embedded/automotive security engineers.
-3. How to negotiate for higher fixed pay, RSUs/bonus, and relocation/notice period buyout.`;
+`Create an anti-anchoring salary negotiation script for "${role}" at ${company}. I have 3+ years of specialized experience in Automotive Cybersecurity (ISO 21434), Embedded Linux, and AOSP/SELinux security. I want to be evaluated on Tier-1 Product GCC level bands (28–42+ LPA Total Compensation including Base + RSUs + Bonus) rather than a percentage hike over my previous salary. Give me exact scripts for:
+1. Deflecting the "What is your current CTC?" question on the initial HR call until they share the approved role band.
+2. Framing my expected range (30 to 36+ LPA TC) around niche skill scarcity (ISO 21434 + SELinux/AOSP).
+3. Negotiating base cash, annual RSU grants, and a Year-1 joining bonus when the initial offer comes in low.`;
 
   document.getElementById('pbox-10').innerText = 
-`Compare and evaluate job offers for "${role}" based on fixed salary, variable/RSU split, technical depth (OEM/Product GCC vs. Services), city/relocation or hybrid policy, and career growth toward Principal Security Architect:
+`Compare and evaluate job offers for "${role}" based on Base Cash, Annual Vested RSUs, Year-1 Sign-On Bonus, technical depth (Product GCC vs. Services), city/hybrid flexibility, and growth toward Principal Security Architect:
 
 [OFFER DETAILS TO COMPARE]
-Offer A: [Paste Company A, City, CTC, Mode]
-Offer B: [Paste Company B, City, CTC, Mode]
+Offer A: [Paste Company A, City, Base, RSUs, Bonus]
+Offer B: [Paste Company B, City, Base, RSUs, Bonus]
 
-Recommend the best option with clear strategic trade-offs.`;
+Recommend the best option with clear financial and career trade-offs.`;
 }
 
 function copyPrompt(boxId, btnEl) {
@@ -1397,7 +1411,6 @@ function updateSearchUrls() {
     remoteDaysText = "30 days";
   }
 
-  // LinkedIn URL
   if (isRemote) {
     document.getElementById('link-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&location=India&f_WT=2&f_TPR=${linkedinTime}&sortBy=DD`;
   } else if (isOtherCities) {
@@ -1408,7 +1421,6 @@ function updateSearchUrls() {
     document.getElementById('link-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&location=${encodeURIComponent(loc)}&f_TPR=${linkedinTime}&sortBy=DD`;
   }
 
-  // Naukri URL
   if (isRemote) {
     document.getElementById('link-naukri').href = `https://www.naukri.com/remote-${roleSlug}-jobs?k=${roleEnc}&wfhType=2&freshness=${naukriDays}`;
   } else if (isOtherCities) {
@@ -1419,7 +1431,6 @@ function updateSearchUrls() {
     document.getElementById('link-naukri').href = `https://www.naukri.com/${roleSlug}-jobs-in-bangalore-bengaluru?k=${roleEnc}&l=Bengaluru&freshness=${naukriDays}`;
   }
 
-  // Indeed URL
   if (isRemote) {
     document.getElementById('link-indeed').href = `https://in.indeed.com/jobs?q=${roleEnc}&l=Remote&fromage=${indeedFromage}&sort=date`;
   } else if (isOtherCities) {
@@ -1430,7 +1441,6 @@ function updateSearchUrls() {
     document.getElementById('link-indeed').href = `https://in.indeed.com/jobs?q=${roleEnc}&l=${encodeURIComponent(loc)}&fromage=${indeedFromage}&sort=date`;
   }
 
-  // Google Jobs URL
   if (isRemote) {
     document.getElementById('link-google').href = `https://www.google.com/search?q=${encodeURIComponent(role + " remote jobs India past " + remoteDaysText)}&ibp=htl;jobs`;
   } else if (isOtherCities) {
@@ -1444,7 +1454,6 @@ function updateSearchUrls() {
   document.getElementById('link-instahyre').href = `https://www.instahyre.com/search-jobs/?query=${roleEnc}`;
   document.getElementById('link-cutshort').href = `https://cutshort.io/jobs?query=${roleEnc}`;
 
-  // Foundit URL
   if (isRemote) {
     document.getElementById('link-foundit').href = `https://www.foundit.in/srp/results?query=${roleEnc}&locations=Remote&filterDays=${founditDays}`;
   } else if (isOtherCities) {
@@ -1455,7 +1464,6 @@ function updateSearchUrls() {
     document.getElementById('link-foundit').href = `https://www.foundit.in/srp/results?query=${roleEnc}&locations=Bengaluru&filterDays=${founditDays}`;
   }
 
-  // Global Remote & InfoSec Platforms
   document.getElementById('link-infosecjobs').href = `https://infosec-jobs.com/?q=${roleEnc}`;
   document.getElementById('link-wellfound').href = `https://wellfound.com/jobs?role=${roleEnc}&remote=true`;
   document.getElementById('link-yc').href = `https://www.workatastartup.com/jobs?query=${roleEnc}`;
@@ -1726,21 +1734,22 @@ function renderCompanies() {
 }
 renderCompanies();
 
-// HIKE CALCULATOR
+// TOTAL COMPENSATION (BASE + RSU + SIGN-ON) CALCULATOR
 function calculateHike() {
   const curr = parseFloat(document.getElementById('currCtc').value) || 0;
-  const off = parseFloat(document.getElementById('offCtc').value) || 0;
-  const varPct = parseFloat(document.getElementById('varPct').value) || 0;
+  const base = parseFloat(document.getElementById('offBase').value) || 0;
+  const rsu = parseFloat(document.getElementById('offRsu').value) || 0;
+  const signon = parseFloat(document.getElementById('offSignon').value) || 0;
 
-  const fixedOff = off * (1 - varPct / 100);
-  const gain = fixedOff - curr;
+  const recurringTc = base + rsu;
+  const year1Tc = recurringTc + signon;
+  const gain = recurringTc - curr;
   const hikePct = curr > 0 ? ((gain / curr) * 100) : 0;
-  const monthlyGain = (gain * 100000) / 12;
 
-  document.getElementById('resFixed').innerText = `${fixedOff.toFixed(2)} LPA`;
+  document.getElementById('resRecurring').innerText = `${recurringTc.toFixed(2)} LPA`;
+  document.getElementById('resYear1').innerText = `${year1Tc.toFixed(2)} LPA`;
   document.getElementById('resHike').innerText = `${hikePct >= 0 ? '+' : ''}${hikePct.toFixed(1)}%`;
   document.getElementById('resGain').innerText = `${gain >= 0 ? '+' : ''}${gain.toFixed(2)} LPA`;
-  document.getElementById('resMonthly').innerText = `${monthlyGain >= 0 ? '+' : ''}₹${Math.round(monthlyGain).toLocaleString('en-IN')} / mo`;
 }
 calculateHike();
 </script>
