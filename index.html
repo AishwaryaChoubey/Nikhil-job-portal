@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikhil Tiwari — Cybersecurity Job Search, Resume Matcher & Interview Studio</title>
+<!-- PDF.js library for client-side PDF text extraction -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
+<style>
+  :root {
+    --primary: #0f172a;
+    --primary-light: #1d4ed8;
+    --accent: #0284c7;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --warning: #d97706;
+    --purple: #7c3aed;
+    --teal: #0d9488;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 60px; }
+  header { background: linear-gradient(135deg, #090d16 0%, #1e3a8a 100%); color: white; padding: 24px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .header-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  .header-title h1 { font-size: 1.65rem; font-weight: 700; }
+  .header-title p { color: #93c5fd; font-size: 0.88rem; margin-top: 4px; }
+  .badge-location { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 6px 14px; font-size: 0.82rem; }
+
+  .profile-banner { max-width: 1400px; margin: 18px auto 0 auto; padding: 0 20px; }
+  .profile-strip { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px 18px; font-size: 0.85rem; color: #1e40af; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+
+  .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
+  .nav-tabs { display: flex; gap: 8px; border-bottom: 2px solid var(--border); margin-bottom: 22px; overflow-x: auto; }
+  .tab-btn { background: none; border: none; padding: 12px 16px; font-size: 0.92rem; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .tab-btn.active { color: var(--primary-light); border-bottom-color: var(--primary-light); }
+  .tab-btn:hover { color: var(--primary); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); margin-bottom: 20px; }
+  .card h3 { font-size: 1.15rem; color: var(--text); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+  input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; margin-top: 6px; margin-bottom: 14px; font-family: inherit; }
+  textarea { resize: vertical; min-height: 120px; }
+  button.btn, a.btn { background: var(--primary-light); color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.88rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
+  button.btn:hover, a.btn:hover { background: #1e3a8a; }
+  button.btn-outline, a.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  button.btn-outline:hover, a.btn-outline:hover { background: #f1f5f9; }
+  button.btn-success { background: var(--success); color: white; }
+  button.btn-success:hover { background: #15803d; }
+  a.btn-purple { background: var(--purple); color: white; }
+  a.btn-purple:hover { background: #6d28d9; }
+  a.btn-teal { background: var(--teal); color: white; padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
+  a.btn-teal:hover { background: #0f766e; }
+
+  .filter-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .pill-btn { background: #f1f5f9; border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: 0.15s; }
+  .pill-btn.active, .pill-btn:hover { background: var(--teal); color: white; border-color: var(--teal); }
+
+  /* Top 30 Matched Jobs Grid */
+  .top30-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; margin-top: 16px; }
+  .job-match-card { background: #ffffff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; transition: all 0.18s; }
+  .job-match-card:hover { border-color: var(--primary-light); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(15,23,42,0.06); }
+  .job-match-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .job-match-title { font-size: 0.98rem; font-weight: 700; color: #0f172a; }
+  .job-match-company { font-size: 0.84rem; font-weight: 600; color: var(--primary-light); margin-top: 2px; }
+  .match-pill { background: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 3px 9px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; white-space: nowrap; }
+  .match-pill.med { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .loc-tag { display: inline-block; background: #f1f5f9; color: #334155; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; margin-top: 4px; }
+  .skill-mini-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .skill-mini { background: #eff6ff; color: #1e40af; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; font-weight: 600; }
+  .job-match-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+
+  .upload-box {
+    border: 2px dashed #93c5fd;
+    background: #f0f7ff;
+    border-radius: 12px;
+    padding: 28px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 14px;
+  }
+  .upload-box:hover, .upload-box.dragover {
+    background: #e0f0fe;
+    border-color: var(--primary-light);
+  }
+  .upload-box input[type="file"] { display: none; }
+  .upload-icon { font-size: 2.2rem; margin-bottom: 8px; display: block; }
+
+  .file-status-pill {
+    display: none;
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.86rem;
+    margin-bottom: 14px;
+  }
+
+  .search-pill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 14px; }
+  .platform-card { border: 1px solid var(--border); border-radius: 8px; padding: 14px; background: #fafafa; display: flex; flex-direction: column; justify-content: space-between; }
+  .platform-card h4 { font-size: 0.95rem; margin-bottom: 4px; color: #1e3a8a; }
+  .platform-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px; }
+  .platform-card.remote { background: #faf5ff; border-color: #e9d5ff; }
+  .platform-card.remote h4 { color: var(--purple); }
+
+  .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 10px; margin-top: 14px; }
+  .company-card { background: #ffffff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; transition: transform 0.15s, border-color 0.15s; }
+  .company-card:hover { transform: translateY(-2px); border-color: var(--teal); box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+  .company-card strong { font-size: 0.88rem; color: #0f172a; }
+  .company-tag { font-size: 0.72rem; color: var(--text-muted); }
+
+  .prompt-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px; background: #ffffff; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; transition: all 0.2s; }
+  .prompt-card:hover { border-color: var(--primary-light); box-shadow: 0 4px 12px rgba(37,99,235,0.06); }
+  .prompt-header { display: flex; align-items: center; gap: 10px; }
+  .prompt-num { width: 32px; height: 32px; border-radius: 8px; background: var(--primary-light); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; flex-shrink: 0; }
+  .prompt-title h4 { font-size: 0.98rem; color: var(--text); }
+  .prompt-title p { font-size: 0.78rem; color: var(--text-muted); }
+  .prompt-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; font-size: 0.82rem; font-family: monospace; color: #334155; max-height: 145px; overflow-y: auto; white-space: pre-wrap; word-break: break-word; }
+  .prompt-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .score-badge { font-size: 2.2rem; font-weight: 800; color: var(--accent); }
+  .chip-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip { background: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; }
+  .chip-missing { background: #fee2e2; color: #b91c1c; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+  th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  th { background: #f8fafc; font-weight: 600; color: var(--text-muted); }
+
+  .q-bank-container { max-height: 540px; overflow-y: auto; padding-right: 8px; }
+  .q-bank-container ol { padding-left: 20px; font-size: 0.86rem; line-height: 1.75; }
+  .q-bank-container li { margin-bottom: 10px; }
+  .q-hint { background: #f1f5f9; border-left: 3px solid var(--accent); padding: 6px 10px; margin-top: 4px; font-size: 0.8rem; color: #334155; border-radius: 0 6px 6px 0; }
+
+  .calc-result-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 10px; }
+  .calc-stat span { font-size: 0.78rem; color: #166534; display: block; }
+  .calc-stat strong { font-size: 1.35rem; color: #15803d; }
+
+  footer.tips-section { margin-top: 40px; background: #0f172a; color: #e2e8f0; border-radius: 12px; padding: 24px; }
+  footer.tips-section h4 { color: #38bdf8; margin-bottom: 12px; font-size: 1.05rem; }
+  footer.tips-section ul { list-style-position: inside; font-size: 0.88rem; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="header-title">
+      <h1>Nikhil Tiwari — Cybersecurity & Embedded Security Hub</h1>
+      <p>3+ Yrs Exp | Automotive Cybersecurity (ISO/SAE 21434 • TARA) • Embedded Linux • AOSP & Network Security</p>
+    </div>
+    <div class="badge-location">
+      📍 Base: <strong>Bengaluru</strong> | Open to: <strong>Bengaluru, Other Cities of India & Remote</strong>
+    </div>
+  </div>
+</header>
+
+<div class="profile-banner">
+  <div class="profile-strip">
+    <span>🛡️ <strong>Core Domain:</strong> Automotive & Embedded Cybersecurity (ISO 21434, TARA, ECU Hardening)</span>
+    <span>🐧 <strong>OS & Kernel Security:</strong> Embedded Linux, AOSP / Android OS Internals, SELinux MAC Policies</span>
+    <span>⚡ <strong>Security Ops & Tools:</strong> iptables/netfilter, Wireshark, tcpdump, CVE Remediation, SonarQube CI/CD</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="nav-tabs">
+    <button class="tab-btn active" id="tab-btn-live-search" onclick="showTab('live-search')">🔍 1. Live Job Search & Top 30 Matches</button>
+    <button class="tab-btn" id="tab-btn-matcher" onclick="showTab('matcher')">🎯 2. Resume & JD Matcher</button>
+    <button class="tab-btn" id="tab-btn-ai-prompts" onclick="showTab('ai-prompts')">🤖 3. AI Prompt Studio (11)</button>
+    <button class="tab-btn" id="tab-btn-companies" onclick="showTab('companies')">🏢 4. Target Companies (All India)</button>
+    <button class="tab-btn" id="tab-btn-interview-studio" onclick="showTab('interview-studio')">💡 5. Interview Studio (100 Qs)</button>
+    <button class="tab-btn" id="tab-btn-salary" onclick="showTab('salary')">💰 6. Salary & Hike Calculator</button>
+  </div>
+
+  <!-- TAB 1: LIVE SEARCH & TOP 30 RESUME-MATCHED JOBS -->
+  <div id="live-search" class="tab-content active">
+    <div class="card">
+      <h3>
+        <span>🔍 Live Cybersecurity Job Search (All India + Recency Filters)</span>
+        <button class="btn btn-success" onclick="launchDailyRoutine()">🚀 Open Top 4 Daily Searches (24h/48h)</button>
+      </h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+        Filter by role, custom keyword, posting date, or location (including <strong>Other Cities of India</strong> like Pune, Hyderabad, Chennai & Delhi NCR). Automatically ranks the <strong>Top 30 Resume-Matched Jobs</strong> below.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+        <div>
+          <label>Target Security Role (Preset):</label>
+          <select id="searchRole" onchange="onSearchFilterChange()">
+            <option value="All Security Roles">All Cybersecurity & Embedded Roles (Best Fit)</option>
+            <option value="Automotive Cybersecurity Engineer">Automotive Cybersecurity Engineer (ISO 21434 / TARA)</option>
+            <option value="Embedded Security Engineer">Embedded Security Engineer (Linux / SELinux)</option>
+            <option value="Android Security Engineer">Android / AOSP Security Engineer</option>
+            <option value="Product Security Engineer">Product Security / Vulnerability Management Engineer</option>
+            <option value="Cybersecurity Engineer">Cybersecurity Engineer (L2 / Incident Response)</option>
+            <option value="Network Security Engineer">Network Security & Forensics Engineer (Wireshark / iptables)</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Or Custom Keyword (Overrides Preset):</label>
+          <input type="text" id="customKeyword" onkeyup="onSearchFilterChange()" placeholder="e.g. AUTOSAR SecOC, UNECE R155, HSM..." style="margin-bottom: 0;">
+        </div>
+
+        <div>
+          <label>Date Posted Filter (Recency Window):</label>
+          <select id="searchWindow" onchange="onSearchFilterChange()">
+            <option value="24h">Past 24 Hours (First 24-48h Advantage)</option>
+            <option value="48h">Past 48 Hours</option>
+            <option value="3d">Past 3 Days</option>
+            <option value="1m">Past 1 Month (30 Days)</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Location / Work Mode:</label>
+          <select id="searchLocation" onchange="onSearchFilterChange()">
+            <option value="All India">All India (Bengaluru + Other Cities + Remote)</option>
+            <option value="Bengaluru, Karnataka">Bengaluru (All Areas)</option>
+            <option value="Manyata Tech Park Bengaluru">Manyata & Bhartiya City Hub (~3-5 km)</option>
+            <option value="Other Cities of India">Other Cities of India (Pune, Hyderabad, Chennai, NCR)</option>
+            <option value="Remote">Remote (India Payroll / WFH)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- TOP 30 RESUME-MATCHED JOBS SECTION -->
+      <div style="margin-top: 24px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h4 style="color: #0f172a; font-size: 1.12rem;">🏆 Top 30 Best-Matching Jobs Calibrated to Nikhil's Resume</h4>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="top30Subtitle">
+              Scored against Nikhil's active resume across Bengaluru, Pune, Hyderabad, Chennai, NCR & Remote.
+            </p>
+          </div>
+          <div class="filter-pills" id="cityQuickPills" style="margin-top: 0;">
+            <button class="pill-btn active" onclick="setQuickCityFilter('All', this)">All Locations (Top 30)</button>
+            <button class="pill-btn" onclick="setQuickCityFilter('Bengaluru', this)">Bengaluru</button>
+            <button class="pill-btn" onclick="setQuickCityFilter('Other Cities', this)">Other Cities of India</button>
+            <button class="pill-btn" onclick="setQuickCityFilter('Remote', this)">Remote</button>
+          </div>
+        </div>
+
+        <div class="top30-grid" id="top30JobsGrid"></div>
+      </div>
+
+      <h4 style="margin-top: 28px; color: #1e3a8a;">🏢 Live Search Launchers (Main Job Boards & India Tech Platforms)</h4>
+      <div class="search-pill-grid">
+        <div class="platform-card">
+          <div>
+            <h4>LinkedIn Jobs</h4>
+            <p>Exact date filter & multi-city India search.</p>
+          </div>
+          <a id="link-linkedin" class="btn" target="_blank">Search LinkedIn ↗</a>
+        </div>
+
+        <div class="platform-card">
+          <div>
+            <h4>Naukri.com</h4>
+            <p>Top volume across Bengaluru, Pune, Hyderabad, Chennai & NCR.</p>
+          </div>
+          <a id="link-naukri" class="btn" target="_blank">Search Naukri ↗</a>
+        </div>
+
+        <div class="platform-card">
+          <div>
+            <h4>Indeed India</h4>
+            <p>Aggregates direct corporate portals and OEM security listings.</p>
+          </div>
+          <a id="link-indeed" class="btn" target="_blank">Search Indeed ↗</a>
+        </div>
+
+        <div class="platform-card">
+          <div>
+            <h4>Google Jobs</h4>
+            <p>Aggregated search across employer ATS career pages.</p>
+          </div>
+          <a id="link-google" class="btn" target="_blank">Search Google Jobs ↗</a>
+        </div>
+
+        <div class="platform-card">
+          <div>
+            <h4>Instahyre</h4>
+            <p>Curated product & security engineering hiring in India.</p>
+          </div>
+          <a id="link-instahyre" class="btn" target="_blank">Search Instahyre ↗</a>
+        </div>
+
+        <div class="platform-card">
+          <div>
+            <h4>Cutshort</h4>
+            <p>Tech and cybersecurity startup hiring with low recruiter noise.</p>
+          </div>
+          <a id="link-cutshort" class="btn" target="_blank">Search Cutshort ↗</a>
+        </div>
+
+        <div class="platform-card">
+          <div>
+            <h4>Foundit India</h4>
+            <p>Strong direct listings for Embedded Systems & InfoSec roles.</p>
+          </div>
+          <a id="link-foundit" class="btn" target="_blank">Search Foundit ↗</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 36px; border-top: 2px dashed #e2e8f0; padding-top: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h4 style="color: var(--purple); font-size: 1.15rem;">🌐 Global Remote Platforms & Niche Security Job Boards</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              Dedicated global remote-first platforms & InfoSec job boards offering USD, EUR, and international compensation.
+            </p>
+          </div>
+          <span style="background: #ede9fe; color: var(--purple); padding: 4px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 700;">
+            Global / Above-INR Pay
+          </span>
+        </div>
+
+        <div class="search-pill-grid">
+          <div class="platform-card remote">
+            <div>
+              <h4>InfoSec-Jobs.com</h4>
+              <p>Dedicated global cybersecurity & product security job board.</p>
+            </div>
+            <a id="link-infosecjobs" class="btn btn-purple" target="_blank">Search InfoSec-Jobs ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>Wellfound</h4>
+              <p>High-growth cybersecurity & funded tech startups.</p>
+            </div>
+            <a id="link-wellfound" class="btn btn-purple" target="_blank">Search Wellfound ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>YC Jobs (Work at a Startup)</h4>
+              <p>Direct security roles at Y Combinator-backed startups.</p>
+            </div>
+            <a id="link-yc" class="btn btn-purple" target="_blank">Search YC Jobs ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>Otta</h4>
+              <p>Clean discovery with highly relevant security engineering roles.</p>
+            </div>
+            <a id="link-otta" class="btn btn-purple" target="_blank">Search Otta ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>Remote OK</h4>
+              <p>Global security listings with public USD salaries.</p>
+            </div>
+            <a id="link-remoteok" class="btn btn-purple" target="_blank">Search Remote OK ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>We Work Remotely</h4>
+              <p>Large remote-first board for InfoSec & Systems Engineers.</p>
+            </div>
+            <a id="link-wwr" class="btn btn-purple" target="_blank">Search WWR ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>Himalayas</h4>
+              <p>Remote-first companies with async-first engineering cultures.</p>
+            </div>
+            <a id="link-himalayas" class="btn btn-purple" target="_blank">Search Himalayas ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>Turing</h4>
+              <p>Remote security & systems engineering roles with US clients.</p>
+            </div>
+            <a id="link-turing" class="btn btn-purple" target="_blank">Search Turing ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>TopTal</h4>
+              <p>High-paying security consulting for vetted engineers.</p>
+            </div>
+            <a id="link-toptal" class="btn btn-purple" target="_blank">Search TopTal ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>Arc.dev</h4>
+              <p>Global tech & security hiring with verified companies.</p>
+            </div>
+            <a id="link-arc" class="btn btn-purple" target="_blank">Search Arc.dev ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>Working Nomads</h4>
+              <p>Curated 100% remote jobs across InfoSec & Linux engineering.</p>
+            </div>
+            <a id="link-workingnomads" class="btn btn-purple" target="_blank">Search Working Nomads ↗</a>
+          </div>
+
+          <div class="platform-card remote">
+            <div>
+              <h4>LinkedIn Worldwide Remote</h4>
+              <p>Strictly worldwide remote roles filtered by posting date.</p>
+            </div>
+            <a id="link-linkedin-remote" class="btn btn-purple" target="_blank">Search Global Remote ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 36px; border-top: 2px dashed #e2e8f0; padding-top: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h4 style="color: var(--teal); font-size: 1.15rem;">🏢 100% Remote Hiring Companies (Direct Portals)</h4>
+            <div class="filter-pills" id="remoteCategoryPills">
+              <button class="pill-btn active" onclick="setRemoteCategory('All', this)">All Companies</button>
+              <button class="pill-btn" onclick="setRemoteCategory('Cybersecurity', this)">Cybersecurity Pure-Play</button>
+              <button class="pill-btn" onclick="setRemoteCategory('Linux & Infra', this)">Linux, Cloud & Infra</button>
+              <button class="pill-btn" onclick="setRemoteCategory('Product & Fintech', this)">Product & Fintech Security</button>
+            </div>
+          </div>
+          <input type="text" id="companySearchInput" onkeyup="filterRemoteCompanies()" placeholder="Filter company name..." style="max-width: 280px; margin: 0;">
+        </div>
+
+        <div class="company-grid" id="remoteCompaniesGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: RESUME UPLOADER & MATCHER -->
+  <div id="matcher" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>
+          <span>📤 1. Upload Nikhil's Resume</span>
+          <span style="font-size: 0.78rem; font-weight: 600; color: var(--success);">Auto-Saved & Syncs Top 30 Jobs</span>
+        </h3>
+
+        <div class="upload-box" id="dropZone" onclick="document.getElementById('fileUploadInput').click()">
+          <span class="upload-icon">🛡️</span>
+          <strong>Click to upload or drag & drop Nikhil's resume</strong>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Supports PDF, DOCX, or TXT (Re-scores Top 30 Jobs in Tab 1 automatically)</p>
+          <input type="file" id="fileUploadInput" accept=".pdf,.docx,.txt" onchange="handleFileSelected(event)">
+        </div>
+
+        <div class="file-status-pill" id="fileStatusPill">
+          <div style="font-weight: 700;" id="fileNameDisplay">Nikhil_Tiwari_Cybersecurity_Resume.pdf</div>
+          <div style="font-size: 0.8rem;" id="fileMetaDisplay">Parsed 0 words • Ready for match</div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; gap: 8px; flex-wrap: wrap;">
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Quick actions:</span>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" onclick="loadDefaultNikhilProfile(true)">Reset to Built-In Security Profile</button>
+          </div>
+        </div>
+
+        <textarea id="parsedResumeText" style="display: none;"></textarea>
+      </div>
+
+      <div class="card">
+        <h3>📋 2. Target Job Description</h3>
+        <label>Target Role Variant:</label>
+        <select id="roleVariant" onchange="syncAiPrompts()">
+          <option>Automotive Cybersecurity Engineer (ISO 21434 / TARA)</option>
+          <option>Embedded Security Engineer (Linux / SELinux / Kernel)</option>
+          <option>Android / AOSP Security Engineer</option>
+          <option>Product Security / Vulnerability Management Engineer</option>
+          <option>Network Security & Incident Response Engineer</option>
+        </select>
+        <label>Target Company (for AI Prompts & Outreach):</label>
+        <input type="text" id="targetCompanyInput" placeholder="e.g. Harman, Bosch, Mercedes-Benz R&D, Qualcomm, Palo Alto Networks..." onkeyup="syncAiPrompts()">
+        <label>Paste JD Text (from LinkedIn, Naukri, or Career Site):</label>
+        <textarea id="jdInput" rows="5" placeholder="Paste complete cybersecurity job description text here..." onkeyup="syncAiPrompts()"></textarea>
+        <button class="btn btn-success" style="width: 100%;" onclick="runComprehensiveMatch()">⚡ Run Resume Match & ATS Diagnostics</button>
+      </div>
+    </div>
+
+    <div class="card" id="matchResultsCard" style="display: none;">
+      <h3>
+        <span>🎯 Match Analysis & ATS Diagnostic Report</span>
+        <button class="btn" onclick="sendMissingToAiStudio()">🤖 Tailor Resume in AI Prompt Studio ➔</button>
+      </h3>
+      <div class="grid-2">
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Direct Keyword Overlap Score</span>
+          <div class="score-badge" id="scoreDisplay">0%</div>
+          <div style="margin-top: 10px;">
+            <strong>Best Resume Persona Recommendation:</strong>
+            <p id="bestResumeText" style="color: var(--primary-light); font-weight: 600; font-size: 0.95rem; margin-top: 4px;"></p>
+          </div>
+          <div style="margin-top: 14px;">
+            <strong>Security Keywords in Your Resume Matched to JD:</strong>
+            <div id="matchedKeywords" class="chip-container"></div>
+          </div>
+          <div style="margin-top: 14px;">
+            <strong>Missing JD Keywords (Add these to your resume before applying):</strong>
+            <div id="missingKeywords" class="chip-container"></div>
+          </div>
+        </div>
+
+        <div style="border-left: 1px solid var(--border); padding-left: 20px;">
+          <h4 style="color: #1e3a8a; margin-bottom: 8px;">🔍 ATS Structure & Formatting Audit</h4>
+          <div id="atsAuditList" style="font-size: 0.88rem; line-height: 1.8;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: AI PROMPT STUDIO (11 BEST PROMPTS AUTO-FILLED) -->
+  <div id="ai-prompts" class="tab-content">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+        <h3>🤖 11 Best AI Prompts for Cybersecurity Job Hunting (Auto-Filled)</h3>
+        <span style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;">
+          Synced with Nikhil's Resume, JD & Missing ATS Keywords
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+        Each prompt automatically pulls from Nikhil's resume, target role, company name, pasted JD, and any missing keywords detected in Tab 2. Click <strong>Copy Prompt</strong> to paste into ChatGPT, Claude, or Gemini.
+      </p>
+
+      <div class="grid-2" id="promptsGrid">
+        <!-- 1. Resume Positioning -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">1</div>
+              <div class="prompt-title">
+                <h4>Resume Positioning (with Missing Keywords)</h4>
+                <p>Tailor your security resume & weave in missing JD terms</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-1"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-1', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 2. LinkedIn Profile Upgrade -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">2</div>
+              <div class="prompt-title">
+                <h4>LinkedIn Profile Upgrade</h4>
+                <p>Improve security recruiter search visibility</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-2"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-2', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 3. Personal Pitch Builder -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">3</div>
+              <div class="prompt-title">
+                <h4>Personal Pitch Builder</h4>
+                <p>Create a clear 60-second interview introduction</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-3"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-3', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 4. Networking Outreach Creator -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">4</div>
+              <div class="prompt-title">
+                <h4>Hiring Manager Outreach</h4>
+                <p>Direct LinkedIn note to Security Engineering Leads</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-4"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-4', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 5. Employee Referral Request -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">5</div>
+              <div class="prompt-title">
+                <h4>Employee Referral Request</h4>
+                <p>High-conversion referral message for Bosch, Harman, Qualcomm</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-11"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-11', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 6. Company Intelligence Brief -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">6</div>
+              <div class="prompt-title">
+                <h4>Company Intelligence Brief</h4>
+                <p>Research product security & vehicle/OS architecture</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-5"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-5', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 7. Interview Readiness Kit -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">7</div>
+              <div class="prompt-title">
+                <h4>Interview Readiness Kit</h4>
+                <p>Prepare deep technical security questions & answers</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-6"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-6', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 8. Behavioral Story Builder -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">8</div>
+              <div class="prompt-title">
+                <h4>Behavioral Story Builder</h4>
+                <p>Turn TARA, SELinux & incident wins into STAR stories</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-7"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-7', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 9. Skill Gap Identifier -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">9</div>
+              <div class="prompt-title">
+                <h4>Skill Gap Identifier</h4>
+                <p>Identify standards or tools to brush up on before interviews</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-8"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-8', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 10. Compensation Strategy Planner -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">10</div>
+              <div class="prompt-title">
+                <h4>Compensation Strategy Planner</h4>
+                <p>Negotiation scripts for niche security roles</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-9"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-9', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+
+        <!-- 11. Offer Decision Analyzer -->
+        <div class="prompt-card">
+          <div>
+            <div class="prompt-header">
+              <div class="prompt-num">11</div>
+              <div class="prompt-title">
+                <h4>Offer Decision Analyzer</h4>
+                <p>Compare competing offers objectively</p>
+              </div>
+            </div>
+            <div class="prompt-box" id="pbox-10"></div>
+          </div>
+          <div class="prompt-actions">
+            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyPrompt('pbox-10', this)">📋 Copy Prompt</button>
+            <a href="https://chatgpt.com" target="_blank" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Open ChatGPT ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: TARGET COMPANIES (ALL INDIA) -->
+  <div id="companies" class="tab-content">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+        <h3>🏢 Target Automotive, Embedded & Cybersecurity GCCs (Bengaluru & Other Cities of India)</h3>
+        <input type="text" id="gccFilterInput" onkeyup="renderCompanies()" placeholder="Filter company, city (Pune, Hyderabad, Chennai...), or role..." style="max-width: 340px; margin: 0;">
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Domain / Tier</th>
+            <th>India Hubs (Bengaluru & Other Cities)</th>
+            <th>Nikhil's Profile Fit Roles</th>
+            <th>Direct Actions</th>
+          </tr>
+        </thead>
+        <tbody id="companyTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB 5: INTERVIEW STUDIO -->
+  <div id="interview-studio" class="tab-content">
+    <div class="card">
+      <h3>Generate Track-Filtered Cybersecurity Interview Preparation Kit</h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+        Filter technical questions by specialization or generate the complete 100-question bank with quick-revision answer hints.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        <div>
+          <label>Target Company & Role Title:</label>
+          <input type="text" id="targetCompany" placeholder="e.g. Harman / Bosch / Qualcomm - Automotive Cybersecurity Engineer">
+        </div>
+        <div>
+          <label>Technical Focus Track Filter:</label>
+          <select id="targetTrackFilter" onchange="generateQuestions()">
+            <option value="all">All Tracks (Complete 100 Questions)</option>
+            <option value="automotive">Automotive Cybersecurity (ISO/SAE 21434, TARA, CAN/SecOC)</option>
+            <option value="linux">Embedded Linux & Kernel Hardening (iptables, Netfilter, Boot)</option>
+            <option value="aosp">Android / AOSP & SELinux Security (MAC, CTS, AVB)</option>
+            <option value="forensics">Network Forensics, CVEs & DevSecOps (Wireshark, SonarQube)</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn btn-success" onclick="generateQuestions()">⚡ Load Calibrated Cybersecurity Questions</button>
+    </div>
+
+    <div id="interviewQuestionsDisplay">
+      <div class="card">
+        <h3 id="interviewHeader">🎯 Cybersecurity Interview Question Bank</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+          Includes quick-revision technical key points on core automotive, Linux, AOSP, and forensics questions.
+        </p>
+
+        <div class="grid-2">
+          <div class="card" style="border: 1px solid #bfdbfe; background: #fbfdff;">
+            <h4 style="color: #1e3a8a; margin-bottom: 10px;" id="techHeading">🛡️ Technical Questions</h4>
+            <div class="q-bank-container">
+              <ol id="technicalQuestionsList"></ol>
+            </div>
+          </div>
+
+          <div class="card" style="border: 1px solid #fed7aa; background: #fffdfb;">
+            <h4 style="color: #c2410c; margin-bottom: 10px;">🤝 Behavioral, Incident Leadership & Governance (50 Questions)</h4>
+            <div class="q-bank-container">
+              <ol id="behavioralQuestionsList"></ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 6: SALARY & HIKE CALCULATOR -->
+  <div id="salary" class="tab-content">
+    <div class="card">
+      <h3>🧮 Offer Hike & Fixed-Pay Evaluator</h3>
+      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 14px;">
+        Compare any new offer against Nikhil's current fixed compensation to verify the real fixed-pay jump and monthly in-hand impact.
+      </p>
+      <div class="grid-3">
+        <div>
+          <label>Current Fixed CTC (LPA):</label>
+          <input type="number" id="currCtc" value="12" step="0.5" oninput="calculateHike()">
+        </div>
+        <div>
+          <label>Offered Total CTC (LPA):</label>
+          <input type="number" id="offCtc" value="18.5" step="0.5" oninput="calculateHike()">
+        </div>
+        <div>
+          <label>Offered Variable / Bonus %:</label>
+          <input type="number" id="varPct" value="10" min="0" max="50" oninput="calculateHike()">
+        </div>
+      </div>
+      <div class="calc-result-box">
+        <div class="calc-stat">
+          <span>Offered Guaranteed Fixed</span>
+          <strong id="resFixed">16.65 LPA</strong>
+        </div>
+        <div class="calc-stat">
+          <span>True Hike on Fixed Pay</span>
+          <strong id="resHike">+38.8%</strong>
+        </div>
+        <div class="calc-stat">
+          <span>Annual Fixed Gain</span>
+          <strong id="resGain">+4.65 LPA</strong>
+        </div>
+        <div class="calc-stat">
+          <span>Est. Monthly Pre-Tax Gain</span>
+          <strong id="resMonthly">+₹38,750 / mo</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Indian Market Benchmarks (3+ Yrs Exp in Automotive & Embedded Cybersecurity)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Role Band</th>
+            <th>Target CTC Range (BLR / Pune / Hyd)</th>
+            <th>Profile Alignment Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Automotive Cybersecurity Engineer (ISO 21434)</strong></td>
+            <td>14 – 22 LPA</td>
+            <td>Highlight hands-on TARA execution, ISO/SAE 21434 compliance, and ECU/IVI threat modeling.</td>
+          </tr>
+          <tr>
+            <td><strong>Embedded Linux / AOSP Security Engineer</strong></td>
+            <td>16 – 24 LPA</td>
+            <td>Emphasize SELinux MAC policy authoring, Android OS internals, and kernel hardening.</td>
+          </tr>
+          <tr>
+            <td><strong>Product Security / DevSecOps Engineer</strong></td>
+            <td>15 – 23 LPA</td>
+            <td>Leverage CVE triage, SonarQube static analysis integration, and CI/CD security gates.</td>
+          </tr>
+          <tr>
+            <td><strong>Global Remote / Tier-1 Security Product GCC</strong></td>
+            <td>22 – 32+ LPA</td>
+            <td>Combine embedded OS security depth with network forensics (Wireshark, iptables, DDoS/MITM defense).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top: 20px; margin-bottom: 8px;">Key Salary Negotiation Reminders for Niche Security Roles</h4>
+      <ul style="font-size: 0.88rem; line-height: 1.8; padding-left: 20px;">
+        <li><strong>Leverage Niche Scarcity:</strong> Engineers who know <em>both</em> ISO/SAE 21434 TARA and low-level SELinux/AOSP hardening are rare—price your niche skill set accordingly.</li>
+        <li><strong>Quote a Clear Range:</strong> Say: <em>"Based on market benchmarks for Automotive & Embedded Security engineers with ISO 21434 and AOSP/SELinux experience, I am targeting 18 to 23 LPA fixed."</em></li>
+        <li><strong>Compare Fixed CTC vs. Variable:</strong> Always anchor on guaranteed fixed pay; watch out for inflated variable components in Tier-1 service firms.</li>
+        <li><strong>Factor in Product GCC Perks:</strong> Tier-1 product GCCs (Qualcomm, Mercedes-Benz R&D, Palo Alto Networks) often include RSUs, annual bonuses, and relocation/joining bonuses.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY TIPS FOOTER -->
+<div class="container">
+  <footer class="tips-section">
+    <h4>💡 High-Impact Cybersecurity Job Hunting Tips & Application Strategy</h4>
+    <ul>
+      <li><strong>Multi-City Advantage:</strong> Pune (Hinjewadi/Chakan), Hyderabad (HITEC City), and Chennai (OMR) host massive Automotive & Semiconductor R&D centers—use the <em>"Other Cities of India"</em> filter to unlock 2x more ISO 21434 & Embedded Security openings.</li>
+      <li><strong>ATS Calibration:</strong> Paste any promising JD into Tab 2, check missing keywords, and click <em>"Tailor Resume in AI Prompt Studio"</em> to generate a targeted resume draft in seconds.</li>
+      <li><strong>Referral Bypass:</strong> Use Tab 4's <em>"Find Hiring Managers"</em> links + Tab 3's <em>Employee Referral Request</em> prompt for Bosch, Harman, Qualcomm, KPIT, and Continental.</li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+let lastMissingKeywords = [];
+let quickCityMode = 'All';
+
+// CURATED POOL OF 36 HIGH-FIT ROLES ACROSS BENGALURU, OTHER CITIES OF INDIA & REMOTE (SCORED DYNAMICALLY AGAINST RESUME)
+const roleOpportunitiesPool = [
+  // BENGALURU ROLES
+  { title: "Automotive Cybersecurity Engineer (ISO 21434)", company: "Harman International", city: "Bengaluru", region: "Bengaluru", skills: ["iso 21434", "tara", "aosp", "automotive", "ecu", "threat modeling"], query: "Automotive Cybersecurity Engineer Harman" },
+  { title: "Senior Embedded Security Engineer (Linux/SELinux)", company: "Qualcomm India", city: "Bengaluru", region: "Bengaluru", skills: ["embedded linux", "selinux", "aosp", "kernel", "android", "mac"], query: "Embedded Security Engineer SELinux Qualcomm" },
+  { title: "Vehicle Cybersecurity & TARA Specialist", company: "Mercedes-Benz R&D (MBRDI)", city: "Bengaluru", region: "Bengaluru", skills: ["iso 21434", "tara", "automotive", "ecu", "threat modeling", "can"], query: "Vehicle Cybersecurity TARA Mercedes Benz" },
+  { title: "Cybersecurity Engineer - Embedded Linux & Kernel", company: "Bosch Global Software (BGSW)", city: "Bengaluru", region: "Bengaluru", skills: ["iso 21434", "embedded linux", "kernel", "hardening", "cve"], query: "Cybersecurity Engineer Embedded Linux Bosch" },
+  { title: "Android / AOSP Platform Security Engineer", company: "Samsung R&D Institute", city: "Bengaluru", region: "Bengaluru", skills: ["aosp", "android", "selinux", "cts", "mac", "kernel"], query: "Android AOSP Security Engineer Samsung" },
+  { title: "Product Security & Vulnerability Engineer", company: "Palo Alto Networks", city: "Bengaluru", region: "Bengaluru", skills: ["cve", "vulnerability", "incident response", "wireshark", "linux"], query: "Product Security Vulnerability Engineer Palo Alto" },
+  { title: "Embedded Firmware & Cryptography Security Engineer", company: "NXP Semiconductors", city: "Bengaluru", region: "Bengaluru", skills: ["embedded linux", "automotive", "hardening", "hsm", "secure boot"], query: "Embedded Security Engineer NXP" },
+  { title: "Network Security & Packet Forensics Engineer", company: "Cisco Systems", city: "Bengaluru", region: "Bengaluru", skills: ["wireshark", "tcpdump", "iptables", "netfilter", "ddos", "mitm"], query: "Network Security Forensics Engineer Cisco" },
+  { title: "Infotainment & Connected Vehicle Security Lead", company: "Continental Automotive", city: "Bengaluru", region: "Bengaluru", skills: ["iso 21434", "tara", "aosp", "embedded linux", "selinux"], query: "Automotive Cybersecurity Continental Bengaluru" },
+  { title: "Product Security / DevSecOps Engineer", company: "IBM Security / Consulting", city: "Bengaluru", region: "Bengaluru", skills: ["sonarqube", "ci/cd", "jenkins", "cve", "vulnerability"], query: "Product Security DevSecOps IBM" },
+  { title: "Linux Kernel & Edge Security Engineer", company: "Nokia", city: "Bengaluru", region: "Bengaluru", skills: ["embedded linux", "iptables", "hardening", "cve", "selinux"], query: "Linux Security Engineer Nokia" },
+  { title: "Automotive Security Testing & Threat Analyst", company: "Aptiv", city: "Bengaluru", region: "Bengaluru", skills: ["iso 21434", "tara", "automotive", "ecu", "penetration testing"], query: "Automotive Cybersecurity Aptiv" },
+
+  // OTHER CITIES OF INDIA (PUNE, HYDERABAD, CHENNAI, DELHI NCR, MUMBAI)
+  { title: "Automotive Cybersecurity Engineer (ISO 21434 / TARA)", company: "KPIT Technologies", city: "Pune (Hinjewadi)", region: "Other Cities", skills: ["iso 21434", "tara", "automotive", "ecu", "autosar", "secoc"], query: "Automotive Cybersecurity Engineer KPIT Pune" },
+  { title: "Embedded Cybersecurity & ECU Hardening Engineer", company: "ZF Group", city: "Hyderabad", region: "Other Cities", skills: ["iso 21434", "tara", "embedded linux", "automotive", "hardening"], query: "Automotive Cybersecurity Engineer ZF Hyderabad" },
+  { title: "Automotive Infotainment & AOSP Security Engineer", company: "Tata Technologies", city: "Pune", region: "Other Cities", skills: ["aosp", "android", "selinux", "automotive", "iso 21434"], query: "Automotive AOSP Security Tata Technologies Pune" },
+  { title: "Connected Vehicle Security Specialist (UNECE R155)", company: "Renault Nissan Tech (RNTBCI)", city: "Chennai", region: "Other Cities", skills: ["iso 21434", "tara", "automotive", "ecu", "threat modeling"], query: "Automotive Cybersecurity Renault Nissan Chennai" },
+  { title: "Embedded Linux & Network Security Engineer", company: "NVIDIA Graphics", city: "Pune / Hyderabad", region: "Other Cities", skills: ["embedded linux", "kernel", "selinux", "iptables", "hardening"], query: "Embedded Linux Security NVIDIA" },
+  { title: "Automotive Security Architect / TARA Lead", company: "L&T Technology Services (LTTS)", city: "Chennai / Vadodara", region: "Other Cities", skills: ["iso 21434", "tara", "automotive", "ecu", "threat modeling"], query: "Automotive Cybersecurity LTTS" },
+  { title: "Android OS & Mobile Kernel Security Engineer", company: "MediaTek India", city: "Noida (Delhi NCR)", region: "Other Cities", skills: ["aosp", "android", "selinux", "kernel", "cts", "mac"], query: "Android Kernel Security MediaTek Noida" },
+  { title: "Product Security & Vulnerability Management Engineer", company: "ServiceNow", city: "Hyderabad", region: "Other Cities", skills: ["cve", "vulnerability", "sonarqube", "ci/cd", "incident response"], query: "Product Security Vulnerability ServiceNow Hyderabad" },
+  { title: "Automotive Cybersecurity Engineer (CAN / Ethernet)", company: "Valeo India", city: "Chennai", region: "Other Cities", skills: ["iso 21434", "tara", "automotive", "ecu", "wireshark"], query: "Automotive Cybersecurity Valeo Chennai" },
+  { title: "Embedded Systems & IoT Security Engineer", company: "Honeywell Technology", city: "Hyderabad / Madurai", region: "Other Cities", skills: ["embedded linux", "hardening", "cve", "wireshark", "iptables"], query: "Embedded Security Engineer Honeywell" },
+  { title: "Telematics & Connected Car Security Engineer", company: "Maruti Suzuki / Suzuki Digital", city: "Gurugram (Delhi NCR)", region: "Other Cities", skills: ["iso 21434", "tara", "automotive", "incident response", "wireshark"], query: "Connected Car Cybersecurity Maruti Gurugram" },
+  { title: "AOSP & Infotainment Security Specialist", company: "Visteon Technical Center", city: "Chennai / Pune", region: "Other Cities", skills: ["aosp", "android", "selinux", "automotive", "iso 21434"], query: "Automotive Security Engineer Visteon" },
+  { title: "Cybersecurity Analyst - L2 Incident & Forensics", company: "Deloitte / EY Cyber", city: "Hyderabad / Gurugram / Mumbai", region: "Other Cities", skills: ["incident response", "wireshark", "tcpdump", "ioc", "vulnerability"], query: "Cybersecurity Incident Response Forensics" },
+  { title: "Embedded Linux Hardening & Firewall Engineer", company: "STMicroelectronics", city: "Greater Noida (NCR)", region: "Other Cities", skills: ["embedded linux", "kernel", "iptables", "hardening", "cve"], query: "Embedded Security Engineer STMicroelectronics Noida" },
+  { title: "Vehicle Cybersecurity & Threat Modeling Engineer", company: "Mahindra & Mahindra (MRV)", city: "Chennai / Pune", region: "Other Cities", skills: ["iso 21434", "tara", "automotive", "ecu", "threat modeling"], query: "Vehicle Cybersecurity Mahindra" },
+  { title: "Product Security & DevSecOps Specialist", company: "Siemens DISW", city: "Pune / Noida", region: "Other Cities", skills: ["sonarqube", "ci/cd", "jenkins", "cve", "linux"], query: "Product Security DevSecOps Siemens" },
+
+  // REMOTE (INDIA / GLOBAL)
+  { title: "Remote Linux & Infrastructure Security Engineer", company: "Canonical (Ubuntu)", city: "Remote (India / Global)", region: "Remote", skills: ["embedded linux", "kernel", "hardening", "cve", "iptables"], query: "Linux Security Engineer Canonical Remote" },
+  { title: "Remote Product Security & Vulnerability Engineer", company: "GitLab", city: "Remote (Global)", region: "Remote", skills: ["cve", "vulnerability", "ci/cd", "sonarqube", "incident response"], query: "Product Security Engineer GitLab Remote" },
+  { title: "Remote Network & Edge Security Engineer", company: "Cloudflare", city: "Remote / Hybrid", region: "Remote", skills: ["iptables", "netfilter", "ddos", "mitm", "wireshark", "tcpdump"], query: "Network Security Engineer Cloudflare Remote" },
+  { title: "Remote Embedded & Automotive Security Consultant", company: "Upstream Security / Argus", city: "Remote (Global)", region: "Remote", skills: ["iso 21434", "tara", "automotive", "ecu", "wireshark"], query: "Automotive Cybersecurity Remote" },
+  { title: "Remote Security Incident & Threat Response Engineer", company: "CrowdStrike", city: "Remote (India)", region: "Remote", skills: ["incident response", "wireshark", "tcpdump", "ioc", "linux"], query: "Incident Response Engineer CrowdStrike India Remote" },
+  { title: "Remote Application & CI/CD Security Engineer", company: "Atlassian", city: "Remote (India)", region: "Remote", skills: ["cve", "vulnerability", "ci/cd", "sonarqube", "threat modeling"], query: "Security Engineer Atlassian India Remote" }
+];
+
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  const activeBtn = document.getElementById('tab-btn-' + tabId);
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
+// RESUME UPLOAD & LOCALSTORAGE PERSISTENCE
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  if (e.dataTransfer.files.length) {
+    processUploadedFile(e.dataTransfer.files[0]);
+  }
+});
+
+function handleFileSelected(e) {
+  if (e.target.files.length) {
+    processUploadedFile(e.target.files[0]);
+  }
+}
+
+async function processUploadedFile(file) {
+  const fileName = file.name;
+  const ext = fileName.split('.').pop().toLowerCase();
+
+  if (ext === 'txt') {
+    const text = await file.text();
+    setParsedResume(fileName, text, true);
+  } else if (ext === 'pdf') {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let fullText = "";
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items.map(item => item.str).join(' ');
+        fullText += pageText + "\n";
+      }
+      setParsedResume(fileName, fullText, true);
+    } catch (err) {
+      alert("Could not parse PDF directly. Please ensure it is not password protected.");
+    }
+  } else {
+    const text = await file.text();
+    setParsedResume(fileName, text, true);
+  }
+}
+
+function setParsedResume(fileName, text, saveToStorage = false) {
+  document.getElementById('parsedResumeText').value = text;
+  const wordCount = text.trim().split(/\s+/).length;
+  
+  document.getElementById('fileNameDisplay').innerText = `✅ Active Resume: ${fileName}`;
+  document.getElementById('fileMetaDisplay').innerText = `Extracted ${wordCount} words • Synced with Top 30 Jobs & AI Studio`;
+  document.getElementById('fileStatusPill').style.display = 'block';
+
+  if (saveToStorage) {
+    try {
+      localStorage.setItem('nikhil_resume_name', fileName);
+      localStorage.setItem('nikhil_resume_text', text);
+    } catch (e) {}
+  }
+  syncAiPrompts();
+  renderTop30Jobs();
+}
+
+function loadDefaultNikhilProfile(clearStorage = false) {
+  if (clearStorage) {
+    localStorage.removeItem('nikhil_resume_name');
+    localStorage.removeItem('nikhil_resume_text');
+  }
+  const savedName = localStorage.getItem('nikhil_resume_name');
+  const savedText = localStorage.getItem('nikhil_resume_text');
+
+  if (savedName && savedText && !clearStorage) {
+    setParsedResume(savedName, savedText, false);
+    return;
+  }
+
+  const defaultText = `SUMMARY
+Nikhil Tiwari — Cybersecurity Engineer with 3+ years of specialized experience in Automotive Cybersecurity (ISO/SAE 21434, TARA), Embedded Linux Hardening, Android/AOSP Security, SELinux MAC policies, Vulnerability Management, and Network Forensics.
+
+EXPERIENCE
+Cybersecurity & Embedded Security Engineer (3+ Years)
+- Executed Threat Analysis and Risk Assessment (TARA) and security compliance aligned with ISO/SAE 21434 for automotive ECUs and infotainment systems.
+- Hardened Embedded Linux and Android/AOSP builds by authoring custom SELinux Mandatory Access Control (MAC) policies, enforcing least privilege, and passing Android CTS security suites.
+- Designed and enforced host-based firewall rules using iptables/netfilter, SECMARK, and Reverse Path Filtering (RPF) to mitigate DDoS and MITM attacks.
+- Led end-to-end Vulnerability Management and CVE remediation across firmware and OS layers; integrated SonarQube static code analysis into Jenkins CI/CD pipelines.
+- Conducted L2 Incident Response and deep packet inspection using Wireshark and tcpdump to isolate Indicators of Compromise (IOCs).
+
+SKILLS & TOOLS
+ISO/SAE 21434, TARA, Automotive Cybersecurity, Embedded Linux, AOSP, Android Security, SELinux, Kernel Hardening, iptables, netfilter, Wireshark, tcpdump, CVE Management, Vulnerability Assessment, SonarQube, Jenkins CI/CD, Incident Response, Threat Modeling`;
+  setParsedResume("Nikhil_Tiwari_Cybersecurity_Profile.pdf", defaultText, false);
+}
+
+// RENDER TOP 30 RESUME-MATCHED JOBS
+function setQuickCityFilter(mode, btn) {
+  quickCityMode = mode;
+  document.querySelectorAll('#cityQuickPills .pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTop30Jobs();
+}
+
+function renderTop30Jobs() {
+  const container = document.getElementById('top30JobsGrid');
+  if (!container) return;
+
+  const resumeLower = (document.getElementById('parsedResumeText')?.value || "").toLowerCase();
+  const customKw = (document.getElementById('customKeyword')?.value || "").trim().toLowerCase();
+  const selectedRole = document.getElementById('searchRole')?.value || "All Security Roles";
+  const locDropdown = document.getElementById('searchLocation')?.value || "All India";
+  const windowVal = document.getElementById('searchWindow')?.value || "24h";
+
+  let linkedinTime = "r86400";
+  let naukriDays = "1";
+  if (windowVal === "48h") { linkedinTime = "r172800"; naukriDays = "2"; }
+  else if (windowVal === "3d") { linkedinTime = "r259200"; naukriDays = "3"; }
+  else if (windowVal === "1m") { linkedinTime = "r2592000"; naukriDays = "30"; }
+
+  // Score every role against Nikhil's active resume + active search filters
+  const scored = roleOpportunitiesPool.map(job => {
+    const matchedSkills = job.skills.filter(s => resumeLower.includes(s));
+    let baseScore = job.skills.length > 0 ? Math.round((matchedSkills.length / job.skills.length) * 100) : 75;
+    // Boost if matches selected dropdown role or custom keyword
+    if (selectedRole !== "All Security Roles" && job.title.toLowerCase().includes(selectedRole.split(' ')[0].toLowerCase())) {
+      baseScore = Math.min(99, baseScore + 8);
+    }
+    if (customKw && (job.title.toLowerCase().includes(customKw) || job.skills.some(s => s.includes(customKw)))) {
+      baseScore = Math.min(99, baseScore + 12);
+    }
+    return { ...job, score: Math.max(68, baseScore), matchedSkills };
+  });
+
+  // Filter by location dropdown or quick pill
+  const filtered = scored.filter(job => {
+    // Quick pill override if not 'All'
+    if (quickCityMode === 'Bengaluru' && job.region !== 'Bengaluru') return false;
+    if (quickCityMode === 'Other Cities' && job.region !== 'Other Cities') return false;
+    if (quickCityMode === 'Remote' && job.region !== 'Remote') return false;
+
+    // Main location dropdown filter when quick pill is 'All'
+    if (quickCityMode === 'All') {
+      if (locDropdown.includes('Bengaluru') && job.region !== 'Bengaluru') return false;
+      if (locDropdown === 'Other Cities of India' && job.region !== 'Other Cities') return false;
+      if (locDropdown === 'Remote' && job.region !== 'Remote') return false;
+    }
+
+    if (customKw) {
+      const hay = (job.title + " " + job.company + " " + job.skills.join(" ")).toLowerCase();
+      return hay.includes(customKw);
+    }
+    return true;
+  });
+
+  // Sort by highest resume match score and take Top 30
+  const top30 = filtered.sort((a, b) => b.score - a.score).slice(0, 30);
+
+  document.getElementById('top30Subtitle').innerText =
+    `Showing Top ${top30.length} Resume-Calibrated Roles (${quickCityMode !== 'All' ? quickCityMode : locDropdown}) • Ranked by Resume Skill Overlap`;
+
+  if (!top30.length) {
+    container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.88rem; grid-column: 1/-1;">No preset cards matched that exact keyword filter—use the Live Search Launchers directly below to search across all platforms!</p>`;
+    return;
+  }
+
+  container.innerHTML = top30.map((job, idx) => {
+    const qEnc = encodeURIComponent(job.query);
+    const locQuery = job.region === "Remote" ? "India" : job.city.split(' ')[0];
+    const linkedinUrl = job.region === "Remote"
+      ? `https://www.linkedin.com/jobs/search/?keywords=${qEnc}&location=India&f_WT=2&f_TPR=${linkedinTime}&sortBy=DD`
+      : `https://www.linkedin.com/jobs/search/?keywords=${qEnc}&location=${encodeURIComponent(locQuery)}&f_TPR=${linkedinTime}&sortBy=DD`;
+    const naukriSlug = job.query.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const naukriUrl = job.region === "Remote"
+      ? `https://www.naukri.com/remote-${naukriSlug}-jobs?k=${qEnc}&wfhType=2&freshness=${naukriDays}`
+      : `https://www.naukri.com/${naukriSlug}-jobs-in-${encodeURIComponent(locQuery.toLowerCase())}?k=${qEnc}&l=${encodeURIComponent(locQuery)}&freshness=${naukriDays}`;
+
+    return `
+      <div class="job-match-card">
+        <div>
+          <div class="job-match-top">
+            <div>
+              <div class="job-match-title">#${idx + 1}. ${job.title}</div>
+              <div class="job-match-company">${job.company}</div>
+            </div>
+            <span class="match-pill ${job.score < 80 ? 'med' : ''}">${job.score}% Match</span>
+          </div>
+          <div><span class="loc-tag">📍 ${job.city}</span></div>
+          <div class="skill-mini-chips">
+            ${job.matchedSkills.slice(0, 5).map(s => `<span class="skill-mini">✓ ${s.toUpperCase()}</span>`).join('')}
+          </div>
+        </div>
+        <div class="job-match-actions">
+          <a href="${linkedinUrl}" target="_blank" class="btn" style="padding: 7px 10px; font-size: 0.78rem;">LinkedIn Live ↗</a>
+          <a href="${naukriUrl}" target="_blank" class="btn btn-outline" style="padding: 7px 10px; font-size: 0.78rem;">Naukri Live ↗</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function onSearchFilterChange() {
+  updateSearchUrls();
+  renderTop30Jobs();
+}
+
+// AI PROMPT STUDIO AUTO-SYNC ENGINE
+function syncAiPrompts() {
+  const role = document.getElementById('roleVariant').value;
+  const company = document.getElementById('targetCompanyInput').value.trim() || "[Target Company]";
+  const jd = document.getElementById('jdInput').value.trim() || "[Paste Job Description]";
+  const resume = document.getElementById('parsedResumeText').value.trim() || "[Uploaded Resume Text]";
+  const missingStr = lastMissingKeywords.length > 0 
+    ? `\n[MISSING ATS KEYWORDS TO WEAVE IN NATURALLY]\n${lastMissingKeywords.join(', ')}\n` 
+    : "";
+
+  document.getElementById('pbox-1').innerText = 
+`Rewrite my cybersecurity resume for "${role}", highlighting measurable security outcomes, strong technical action verbs, and exact keywords from this job description:${missingStr}
+[JOB DESCRIPTION]
+${jd}
+
+[MY CURRENT RESUME]
+${resume}`;
+
+  document.getElementById('pbox-2').innerText = 
+`Rewrite my LinkedIn headline, 'About' summary, and core experience bullet points to attract technical recruiters for "${role}" positions across Bengaluru, Pune, Hyderabad, and Chennai, using keywords from my background:
+
+[MY BACKGROUND & SECURITY METRICS]
+${resume}`;
+
+  document.getElementById('pbox-3').innerText = 
+`Create a concise, confident 60-second self-introduction pitch ("Tell me about yourself") for a technical interview for "${role}" at ${company}, emphasizing my hands-on experience in ISO/SAE 21434 TARA, Embedded Linux/AOSP hardening, SELinux policies, and CVE remediation:
+
+[MY RESUME]
+${resume}`;
+
+  document.getElementById('pbox-4').innerText = 
+`Write a concise, high-conversion LinkedIn outreach message to a Cybersecurity Engineering Manager or Product Security Lead at ${company} regarding "${role}" openings. Highlight my 3+ years of hands-on experience in ISO 21434, Embedded Linux/SELinux, and vulnerability remediation. Keep it under 100 words.`;
+
+  document.getElementById('pbox-11').innerText = 
+`Write a polite, crisp LinkedIn message to a Senior Security Engineer working at ${company} asking for an employee referral for the "${role}" position. Mention my 3+ years of directly relevant experience in Automotive Cybersecurity (ISO 21434 / TARA), Embedded Linux, AOSP, and SELinux hardening, and offer to share my tailored resume and Job ID. Keep it under 90 words.`;
+
+  document.getElementById('pbox-5').innerText = 
+`Summarise ${company}'s product architecture, automotive/embedded or cloud security focus, recent security initiatives or acquisitions, primary competitors, and likely technical interview focus areas for a "${role}" candidate.`;
+
+  document.getElementById('pbox-6').innerText = 
+`Generate 15 deep technical interview questions (covering ISO/SAE 21434, TARA, SELinux, Embedded Linux kernel hardening, iptables, AOSP, and packet forensics) for "${role}" at ${company}, with strong, detailed engineering answers based on my experience:
+
+[MY EXPERIENCE]
+${resume}`;
+
+  document.getElementById('pbox-7').innerText = 
+`Turn my cybersecurity experience into 3 high-impact STAR-format (Situation, Task, Action, Result) interview stories highlighting:
+1. Identifying and mitigating a critical threat during a TARA / ISO 21434 assessment
+2. Debugging a complex SELinux policy denial or hardening an AOSP / Embedded Linux build without breaking functionality
+3. Leading incident forensics (Wireshark/tcpdump) or remediating high-severity CVEs in CI/CD
+
+[MY DETAILS]
+${resume}`;
+
+  document.getElementById('pbox-8').innerText = 
+`Compare my current security skills and experience with the requirements for "${role}" from this job description. Give me a clear gap analysis and suggest the top 3-5 security standards, protocols (e.g., AUTOSAR SecOC, HSM/PKI, Fuzzing), or tools I should emphasize or brush up on:
+
+[TARGET JOB DESCRIPTION]
+${jd}
+
+[MY RESUME]
+${resume}`;
+
+  document.getElementById('pbox-9').innerText = 
+`Create a salary negotiation script for "${role}" at ${company}. I have 3+ years of specialized experience in Automotive Cybersecurity (ISO 21434), Embedded Linux, and AOSP/SELinux security. Give me scripts for:
+1. When the recruiter asks my expected CTC early in the process.
+2. When the initial offer comes in below market benchmark for niche embedded/automotive security engineers.
+3. How to negotiate for higher fixed pay, RSUs/bonus, and relocation/notice period buyout.`;
+
+  document.getElementById('pbox-10').innerText = 
+`Compare and evaluate job offers for "${role}" based on fixed salary, variable/RSU split, technical depth (OEM/Product GCC vs. Services), city/relocation or hybrid policy, and career growth toward Principal Security Architect:
+
+[OFFER DETAILS TO COMPARE]
+Offer A: [Paste Company A, City, CTC, Mode]
+Offer B: [Paste Company B, City, CTC, Mode]
+
+Recommend the best option with clear strategic trade-offs.`;
+}
+
+function copyPrompt(boxId, btnEl) {
+  const text = document.getElementById(boxId).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btnEl.innerText;
+    btnEl.innerText = "✅ Copied!";
+    btnEl.style.background = "var(--success)";
+    setTimeout(() => {
+      btnEl.innerText = orig;
+      btnEl.style.background = "";
+    }, 1800);
+  });
+}
+
+function sendMissingToAiStudio() {
+  syncAiPrompts();
+  showTab('ai-prompts');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+loadDefaultNikhilProfile(false);
+
+function runComprehensiveMatch() {
+  const resumeText = document.getElementById('parsedResumeText').value.toLowerCase();
+  const jdText = document.getElementById('jdInput').value.toLowerCase();
+
+  if (!resumeText.trim()) { alert("Please upload a resume file first."); return; }
+  if (!jdText.trim()) { alert("Please paste a job description to analyze."); return; }
+
+  const dictionary = [
+    "iso 21434", "iso/sae 21434", "tara", "threat modeling", "automotive", "ecu",
+    "embedded linux", "kernel", "selinux", "aosp", "android", "mac", "cts",
+    "iptables", "netfilter", "firewall", "wireshark", "tcpdump", "packet",
+    "cve", "vulnerability", "incident response", "forensics", "sonarqube",
+    "ci/cd", "jenkins", "devsecops", "hardening", "ddos", "mitm", "ioc",
+    "autosar", "secoc", "hsm", "pki", "cryptography", "can", "ethernet", "penetration testing",
+    "unece r155", "wp.29", "secure boot", "trustzone", "tee", "sbom", "fuzzing"
+  ];
+
+  const jdKeywords = dictionary.filter(w => jdText.includes(w));
+  const matched = [];
+  const missing = [];
+
+  jdKeywords.forEach(word => {
+    if (resumeText.includes(word)) matched.push(word);
+    else missing.push(word);
+  });
+
+  lastMissingKeywords = missing;
+  syncAiPrompts();
+
+  const score = jdKeywords.length > 0 
+    ? Math.round((matched.length / jdKeywords.length) * 100) 
+    : 75;
+
+  let bestTrack = "Automotive Cybersecurity Engineer (ISO 21434 / TARA Track)";
+  if (jdText.includes("aosp") || jdText.includes("android") || jdText.includes("selinux") || jdText.includes("kernel")) {
+    bestTrack = "Embedded Linux & AOSP Security Engineer Track";
+  } else if (jdText.includes("cve") || jdText.includes("sonarqube") || jdText.includes("devsecops") || jdText.includes("incident")) {
+    bestTrack = "Product Security & Vulnerability Management Track";
+  }
+
+  const rawResume = document.getElementById('parsedResumeText').value;
+  const atsAudit = [];
+
+  const requiredHeadings = ["summary", "experience", "skills", "education"];
+  const foundHeadings = requiredHeadings.filter(h => rawResume.toLowerCase().includes(h));
+  if (foundHeadings.length >= 2) {
+    atsAudit.push("✅ <strong>Section Headings:</strong> Standard ATS section titles detected (" + foundHeadings.join(', ') + ").");
+  } else {
+    atsAudit.push("⚠️ <strong>Section Headings:</strong> Missing standard headings (Summary, Experience, Skills). ATS parsers may misfile text.");
+  }
+
+  if (rawResume.includes("|") || rawResume.includes("\t\t")) {
+    atsAudit.push("⚠️ <strong>Table/Column Formatting:</strong> Tables or tab stops detected. Ensure text is stored in single-column layout for ATS.");
+  } else {
+    atsAudit.push("✅ <strong>Flow & Formatting:</strong> Clean linear layout detected.");
+  }
+
+  const wordCount = rawResume.trim().split(/\s+/).length;
+  if (wordCount < 150) {
+    atsAudit.push("⚠️ <strong>Length:</strong> Parsed word count (" + wordCount + " words) is brief. Ensure your PDF has selectable text.");
+  } else if (wordCount > 900) {
+    atsAudit.push("⚠️ <strong>Length:</strong> Word count (" + wordCount + " words) exceeds 2 pages. Consider condensing older points.");
+  } else {
+    atsAudit.push("✅ <strong>Resume Length:</strong> Optimal length (" + wordCount + " words / clean 1–2 pages).");
+  }
+
+  document.getElementById('matchResultsCard').style.display = 'block';
+  document.getElementById('scoreDisplay').innerText = score + "%";
+  document.getElementById('bestResumeText').innerText = bestTrack;
+
+  document.getElementById('matchedKeywords').innerHTML = matched.length
+    ? matched.map(k => `<span class="chip">${k}</span>`).join('')
+    : '<span style="color: var(--text-muted); font-size: 0.85rem;">No direct overlap terms found</span>';
+
+  document.getElementById('missingKeywords').innerHTML = missing.length
+    ? missing.map(k => `<span class="chip chip-missing">${k}</span>`).join('')
+    : '<span style="color: var(--success); font-size: 0.85rem;">Excellent coverage! No missing target terms.</span>';
+
+  document.getElementById('atsAuditList').innerHTML = atsAudit.map(a => `<div>${a}</div>`).join('');
+  document.getElementById('matchResultsCard').scrollIntoView({ behavior: 'smooth' });
+}
+
+// LIVE SEARCH URL ENGINE (WITH "OTHER CITIES OF INDIA" SUPPORT)
+function updateSearchUrls() {
+  const customKw = document.getElementById('customKeyword').value.trim();
+  const presetRole = document.getElementById('searchRole').value;
+  const role = customKw || (presetRole === "All Security Roles" ? "Cybersecurity Embedded Automotive Engineer" : presetRole);
+  const windowVal = document.getElementById('searchWindow').value;
+  const loc = document.getElementById('searchLocation').value;
+
+  const isRemote = loc === "Remote";
+  const isOtherCities = loc === "Other Cities of India";
+  const isAllIndia = loc === "All India";
+
+  const roleEnc = encodeURIComponent(role);
+  const roleSlug = role.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  let linkedinTime = "r86400";
+  let naukriDays = "1";
+  let indeedFromage = "1";
+  let founditDays = "1";
+  let remoteDaysText = "1 day";
+
+  if (windowVal === "48h") {
+    linkedinTime = "r172800";
+    naukriDays = "2";
+    indeedFromage = "2";
+    founditDays = "2";
+    remoteDaysText = "2 days";
+  } else if (windowVal === "3d") {
+    linkedinTime = "r259200";
+    naukriDays = "3";
+    indeedFromage = "3";
+    founditDays = "3";
+    remoteDaysText = "3 days";
+  } else if (windowVal === "1m") {
+    linkedinTime = "r2592000";
+    naukriDays = "30";
+    indeedFromage = "30";
+    founditDays = "30";
+    remoteDaysText = "30 days";
+  }
+
+  // LinkedIn URL
+  if (isRemote) {
+    document.getElementById('link-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&location=India&f_WT=2&f_TPR=${linkedinTime}&sortBy=DD`;
+  } else if (isOtherCities) {
+    document.getElementById('link-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(role + " (Pune OR Hyderabad OR Chennai OR Noida OR Gurugram)")}&location=India&f_TPR=${linkedinTime}&sortBy=DD`;
+  } else if (isAllIndia) {
+    document.getElementById('link-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&location=India&f_TPR=${linkedinTime}&sortBy=DD`;
+  } else {
+    document.getElementById('link-linkedin').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&location=${encodeURIComponent(loc)}&f_TPR=${linkedinTime}&sortBy=DD`;
+  }
+
+  // Naukri URL
+  if (isRemote) {
+    document.getElementById('link-naukri').href = `https://www.naukri.com/remote-${roleSlug}-jobs?k=${roleEnc}&wfhType=2&freshness=${naukriDays}`;
+  } else if (isOtherCities) {
+    document.getElementById('link-naukri').href = `https://www.naukri.com/${roleSlug}-jobs?k=${roleEnc}&l=Pune%2C%20Hyderabad%2C%20Chennai%2C%20Delhi%20%2F%20NCR%2C%20Mumbai&freshness=${naukriDays}`;
+  } else if (isAllIndia) {
+    document.getElementById('link-naukri').href = `https://www.naukri.com/${roleSlug}-jobs?k=${roleEnc}&l=Bengaluru%2C%20Pune%2C%20Hyderabad%2C%20Chennai%2C%20Delhi%20%2F%20NCR&freshness=${naukriDays}`;
+  } else {
+    document.getElementById('link-naukri').href = `https://www.naukri.com/${roleSlug}-jobs-in-bangalore-bengaluru?k=${roleEnc}&l=Bengaluru&freshness=${naukriDays}`;
+  }
+
+  // Indeed URL
+  if (isRemote) {
+    document.getElementById('link-indeed').href = `https://in.indeed.com/jobs?q=${roleEnc}&l=Remote&fromage=${indeedFromage}&sort=date`;
+  } else if (isOtherCities) {
+    document.getElementById('link-indeed').href = `https://in.indeed.com/jobs?q=${encodeURIComponent(role + " (Pune OR Hyderabad OR Chennai OR Noida)")}&l=India&fromage=${indeedFromage}&sort=date`;
+  } else if (isAllIndia) {
+    document.getElementById('link-indeed').href = `https://in.indeed.com/jobs?q=${roleEnc}&l=India&fromage=${indeedFromage}&sort=date`;
+  } else {
+    document.getElementById('link-indeed').href = `https://in.indeed.com/jobs?q=${roleEnc}&l=${encodeURIComponent(loc)}&fromage=${indeedFromage}&sort=date`;
+  }
+
+  // Google Jobs URL
+  if (isRemote) {
+    document.getElementById('link-google').href = `https://www.google.com/search?q=${encodeURIComponent(role + " remote jobs India past " + remoteDaysText)}&ibp=htl;jobs`;
+  } else if (isOtherCities) {
+    document.getElementById('link-google').href = `https://www.google.com/search?q=${encodeURIComponent(role + " jobs in Pune Hyderabad Chennai Noida past " + remoteDaysText)}&ibp=htl;jobs`;
+  } else if (isAllIndia) {
+    document.getElementById('link-google').href = `https://www.google.com/search?q=${encodeURIComponent(role + " jobs in India past " + remoteDaysText)}&ibp=htl;jobs`;
+  } else {
+    document.getElementById('link-google').href = `https://www.google.com/search?q=${encodeURIComponent(role + " jobs in " + loc + " past " + remoteDaysText)}&ibp=htl;jobs`;
+  }
+
+  document.getElementById('link-instahyre').href = `https://www.instahyre.com/search-jobs/?query=${roleEnc}`;
+  document.getElementById('link-cutshort').href = `https://cutshort.io/jobs?query=${roleEnc}`;
+
+  // Foundit URL
+  if (isRemote) {
+    document.getElementById('link-foundit').href = `https://www.foundit.in/srp/results?query=${roleEnc}&locations=Remote&filterDays=${founditDays}`;
+  } else if (isOtherCities) {
+    document.getElementById('link-foundit').href = `https://www.foundit.in/srp/results?query=${roleEnc}&locations=Pune,Hyderabad,Chennai,Noida&filterDays=${founditDays}`;
+  } else if (isAllIndia) {
+    document.getElementById('link-foundit').href = `https://www.foundit.in/srp/results?query=${roleEnc}&locations=Bengaluru,Pune,Hyderabad,Chennai,Noida&filterDays=${founditDays}`;
+  } else {
+    document.getElementById('link-foundit').href = `https://www.foundit.in/srp/results?query=${roleEnc}&locations=Bengaluru&filterDays=${founditDays}`;
+  }
+
+  // Global Remote & InfoSec Platforms
+  document.getElementById('link-infosecjobs').href = `https://infosec-jobs.com/?q=${roleEnc}`;
+  document.getElementById('link-wellfound').href = `https://wellfound.com/jobs?role=${roleEnc}&remote=true`;
+  document.getElementById('link-yc').href = `https://www.workatastartup.com/jobs?query=${roleEnc}`;
+  document.getElementById('link-otta').href = `https://otta.com/search?query=${roleEnc}`;
+  document.getElementById('link-remoteok').href = `https://remoteok.com/remote-${roleSlug}-jobs`;
+  document.getElementById('link-wwr').href = `https://weworkremotely.com/remote-jobs/search?term=${roleEnc}`;
+  document.getElementById('link-himalayas').href = `https://himalayas.app/jobs?q=${roleEnc}`;
+  document.getElementById('link-turing').href = `https://www.turing.com/jobs?search=${roleEnc}`;
+  document.getElementById('link-toptal').href = `https://www.toptal.com/careers?search=${roleEnc}`;
+  document.getElementById('link-arc').href = `https://arc.dev/remote-jobs?search=${roleEnc}`;
+  document.getElementById('link-workingnomads').href = `https://www.workingnomads.com/jobs?search=${roleEnc}`;
+  document.getElementById('link-linkedin-remote').href = `https://www.linkedin.com/jobs/search/?keywords=${roleEnc}&f_WT=2&f_TPR=${linkedinTime}&sortBy=DD`;
+}
+updateSearchUrls();
+
+function launchDailyRoutine() {
+  const ids = ['link-linkedin', 'link-naukri', 'link-indeed', 'link-google'];
+  ids.forEach(id => {
+    const url = document.getElementById(id).href;
+    window.open(url, '_blank');
+  });
+}
+
+// 100% REMOTE COMPANIES WITH CATEGORY FILTER
+let activeRemoteCategory = 'All';
+const remoteCompanies = [
+  { name: "Cloudflare", cat: "Cybersecurity", url: "https://www.cloudflare.com/careers/" },
+  { name: "Abnormal Security", cat: "Cybersecurity", url: "https://abnormalsecurity.com/careers" },
+  { name: "VGS (Very Good Security)", cat: "Cybersecurity", url: "https://www.verygoodsecurity.com/careers" },
+  { name: "LogicGate (GRC / Risk)", cat: "Cybersecurity", url: "https://www.logicgate.com/careers/" },
+  { name: "DuckDuckGo (Privacy)", cat: "Cybersecurity", url: "https://duckduckgo.com/hiring" },
+  { name: "Canonical (Ubuntu)", cat: "Linux & Infra", url: "https://canonical.com/careers" },
+  { name: "GitLab", cat: "Linux & Infra", url: "https://about.gitlab.com/jobs/" },
+  { name: "Docker, Inc", cat: "Linux & Infra", url: "https://www.docker.com/careers/" },
+  { name: "DigitalOcean", cat: "Linux & Infra", url: "https://www.digitalocean.com/careers" },
+  { name: "Akamai Technologies", cat: "Linux & Infra", url: "https://www.akamai.com/careers" },
+  { name: "Confluent", cat: "Linux & Infra", url: "https://www.confluent.io/careers/" },
+  { name: "VAST Data", cat: "Linux & Infra", url: "https://vastdata.com/careers" },
+  { name: "Atlassian", cat: "Product & Fintech", url: "https://www.atlassian.com/company/careers" },
+  { name: "DocuSign", cat: "Product & Fintech", url: "https://www.docusign.com/careers" },
+  { name: "Cash App", cat: "Product & Fintech", url: "https://cash.app/careers" },
+  { name: "Upstart", cat: "Product & Fintech", url: "https://www.upstart.com/careers" },
+  { name: "Shopify", cat: "Product & Fintech", url: "https://www.shopify.com/careers" },
+  { name: "Automattic", cat: "Product & Fintech", url: "https://automattic.com/work-with-us/" },
+  { name: "Quest Software", cat: "Linux & Infra", url: "https://www.quest.com/careers/" },
+  { name: "Workiva", cat: "Product & Fintech", url: "https://www.workiva.com/careers" },
+  { name: "Xapobank", cat: "Product & Fintech", url: "https://www.xapobank.com/careers" },
+  { name: "AngelOne", cat: "Product & Fintech", url: "https://www.angelone.in/careers" },
+  { name: "Quantum", cat: "Linux & Infra", url: "https://www.quantum.com/en/company/careers/" },
+  { name: "Deltek", cat: "Product & Fintech", url: "https://www.deltek.com/en/about/careers" }
+];
+
+function setRemoteCategory(cat, btn) {
+  activeRemoteCategory = cat;
+  document.querySelectorAll('#remoteCategoryPills .pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterRemoteCompanies();
+}
+
+function renderRemoteCompanies(filter = "") {
+  const container = document.getElementById('remoteCompaniesGrid');
+  const term = filter.toLowerCase().trim();
+  const matched = remoteCompanies.filter(c => {
+    const matchName = c.name.toLowerCase().includes(term);
+    const matchCat = activeRemoteCategory === 'All' || c.cat === activeRemoteCategory;
+    return matchName && matchCat;
+  });
+
+  if (!matched.length) {
+    container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; grid-column: 1/-1;">No matching companies found.</p>';
+    return;
+  }
+
+  container.innerHTML = matched.map(c => `
+    <div class="company-card">
+      <div>
+        <strong>${c.name}</strong>
+        <div class="company-tag">${c.cat}</div>
+      </div>
+      <a href="${c.url}" target="_blank" class="btn-teal">Career Site ↗</a>
+    </div>
+  `).join('');
+}
+renderRemoteCompanies();
+
+function filterRemoteCompanies() {
+  const query = document.getElementById('companySearchInput').value;
+  renderRemoteCompanies(query);
+}
+
+// TRACK-FILTERED TECHNICAL QUESTIONS WITH HINTS
+const technicalBank = [
+  { track: "automotive", q: "Walk through the end-to-end Threat Analysis and Risk Assessment (TARA) methodology under ISO/SAE 21434.", hint: "Cover: Item Definition → Asset Identification & Cybersecurity Properties (CIA) → Threat Scenarios (STRIDE) → Impact Rating (SFOP: Safety, Financial, Operational, Privacy) → Attack Path Analysis → Attack Feasibility Rating → Risk Value & Treatment Decision." },
+  { track: "automotive", q: "How do you determine Attack Feasibility Ratings (Attack Potential vs. CVSS-based vs. Attack Vector) in an automotive TARA?", hint: "Explain ISO 21434 Annex G: Attack Potential sums Elapsed Time, Specialist Expertise, Knowledge of Item, Window of Opportunity, and Equipment (Very Low to High)." },
+  { track: "automotive", q: "Explain the difference between Cybersecurity Goals, Cybersecurity Requirements, and Cybersecurity Controls in ISO/SAE 21434.", hint: "Goals = high-level objectives tied to 'Reduce' risk treatment; Requirements = technical specifications allocated to components; Controls = concrete implementations (e.g., SecOC, Secure Boot)." },
+  { track: "aosp", q: "How do you write and debug a custom SELinux Mandatory Access Control (MAC) policy for a new daemon in AOSP or Embedded Linux?", hint: "Mention defining domain/type in .te, labeling binary in file_contexts, running in permissive mode, collecting dmesg/logcat avc: denied logs, and translating with audit2allow while avoiding broad rules." },
+  { track: "aosp", q: "What is the difference between SELinux Permissive mode and Enforcing mode, and how do you resolve AVC denial logs cleanly without over-permitting?", hint: "Permissive logs denials without blocking; Enforcing blocks and logs. Resolve cleanly by granting least-privilege permissions to specific target types rather than blanket wildcards." },
+  { track: "aosp", q: "How does Android's Verified Boot (AVB) and dm-verity protect the OS partition from persistent rootkits?", hint: "AVB establishes a cryptographic chain of trust from hardware RoT → Bootloader → boot/vbmeta partitions; dm-verity validates block-level hashes of system/vendor partitions at runtime." },
+  { track: "linux", q: "Explain the architecture of Linux netfilter and the packet traversal order across PREROUTING, INPUT, FORWARD, OUTPUT, and POSTROUTING chains.", hint: "Incoming local packet: PREROUTING → Routing Decision → INPUT → Local Process. Routed packet: PREROUTING → FORWARD → POSTROUTING. Local outbound: OUTPUT → POSTROUTING." },
+  { track: "linux", q: "How do you configure iptables/nftables rules to mitigate SYN flood DDoS attacks and IP spoofing on an embedded gateway?", hint: "Enable net.ipv4.tcp_syncookies=1, use hashlimit/limit modules on --syn packets, drop INVALID connection states via conntrack, and drop bogon/spoofed source IPs." },
+  { track: "linux", q: "What is Reverse Path Filtering (rp_filter) and SECMARK in Linux networking, and how do they harden an automotive ECU?", hint: "rp_filter drops packets whose source IP isn't reachable via the incoming interface (anti-spoofing); SECMARK attaches SELinux security contexts to packets for fine-grained socket access control." },
+  { track: "forensics", q: "How do you analyze a PCAP capture in Wireshark or tcpdump to detect ARP spoofing, MITM attacks, or anomalous C2 beaconing?", hint: "Check duplicate MAC-to-IP mappings (arp.duplicate-address-detected), anomalous TLS handshakes/self-signed certs, DNS tunneling patterns, and periodic fixed-interval outbound TCP flows." },
+  { track: "linux", q: "Explain how Secure Boot works from BootROM (Root of Trust) through U-Boot/BL2 to the Linux kernel image verification.", hint: "Immutable BootROM verifies BL2 signature via fused eFuse public key hash → BL2 verifies U-Boot → U-Boot verifies signed FIT image (kernel + DTB + initramfs)." },
+  { track: "automotive", q: "What is the role of a Hardware Security Module (HSM) or Trusted Execution Environment (TEE / ARM TrustZone) in automotive ECUs?", hint: "HSM isolates cryptographic keys and accelerates AES/ECC/TRNG in tamper-resistant hardware; TrustZone splits CPU execution into Secure World (OP-TEE) and Normal World (Linux/AOSP)." },
+  { track: "automotive", q: "How does AUTOSAR SecOC (Secure Onboard Communication) prevent replay and spoofing attacks on CAN/CAN-FD buses?", hint: "Appends a truncated CMAC (Message Authentication Code) and Freshness Value (trip/reset counter) to each PDU so receivers reject replayed or forged frames." },
+  { track: "automotive", q: "What are the primary security vulnerabilities of classic CAN bus, and how does Automotive Ethernet (SOME/IP, DoIP) change the threat landscape?", hint: "Classic CAN lacks encryption, authentication, and source addressing (broadcast). Automotive Ethernet introduces IP-based attack surfaces requiring VLAN segmentation, MACsec, and TLS/DTLS." },
+  { track: "linux", q: "How do you harden an Embedded Linux root filesystem (read-only rootfs, stripping symbols, disabling unused kernel modules, sysctl tuning)?", hint: "Mount / as read-only SquashFS, remove gcc/gdb/shells in production builds, disable module loading (kernel.modules_disabled=1), and enforce non-root service users." },
+  { track: "linux", q: "Explain Linux capabilities (CAP_NET_RAW, CAP_SYS_ADMIN) and how you use them to drop root privileges for embedded services." },
+  { track: "aosp", q: "How does Android isolate applications using UID/GID sandboxing alongside SELinux domains (untrusted_app vs. system_app)?" },
+  { track: "aosp", q: "What security checks are validated during Android Compatibility Test Suite (CTS) and VTS security runs?" },
+  { track: "forensics", q: "How do you triage and prioritize CVEs in an embedded Linux BSP or AOSP build when hundreds of advisories are published?" },
+  { track: "forensics", q: "Explain how you integrate SonarQube static application security testing (SAST) into a Jenkins CI/CD pipeline to block insecure C/C++ commits." },
+  { track: "linux", q: "What are common memory corruption vulnerabilities in C/C++ embedded firmware (buffer overflow, UAF, integer overflow) and compiler mitigations (ASLR, Stack Canaries, NX)?" },
+  { track: "automotive", q: "How do you secure Over-The-Air (OTA) firmware updates for connected vehicles (signing, anti-rollback counters, encrypted payloads)?" },
+  { track: "automotive", q: "Explain the difference between symmetric (AES-GCM) and asymmetric (ECDSA, RSA) cryptography in vehicle-to-cloud TLS communication." },
+  { track: "aosp", q: "How do you secure inter-process communication (IPC) in Android Binder or Linux D-Bus against unauthorized callers?" },
+  { track: "automotive", q: "What is the UNECE WP.29 R155 regulation, and how does a Cybersecurity Management System (CSMS) relate to ISO/SAE 21434?" },
+  { track: "automotive", q: "How do you conduct a STRIDE threat model on an In-Vehicle Infotainment (IVI) head unit with Bluetooth, Wi-Fi, and cellular connectivity?" },
+  { track: "automotive", q: "How do you secure debug interfaces (JTAG, UART, ADB) before transitioning an ECU from engineering sample to mass production?" },
+  { track: "automotive", q: "Explain how TLS mutual authentication (mTLS) and certificate pinning protect telematics control units (TCUs)." },
+  { track: "forensics", q: "What steps do you take during L2 Incident Response when an anomalous outbound connection is flagged on a production Linux system?" },
+  { track: "forensics", q: "How do you extract and correlate Indicators of Compromise (IOCs) from system logs, journald, and network captures?" },
+  { track: "linux", q: "Explain how Linux namespaces and cgroups contribute to container and process isolation on modern automotive hypervisors." },
+  { track: "linux", q: "What is the difference between DAC (Discretionary Access Control) and MAC (Mandatory Access Control) in Linux security?" },
+  { track: "linux", q: "How do you protect cryptographic keys stored on an embedded device without dedicated secure element hardware?" },
+  { track: "aosp", q: "What are common attack vectors against Android Automotive OS (AAOS) third-party apps and how do you mitigate privilege escalation?" },
+  { track: "linux", q: "How do you configure kernel sysctl parameters (e.g., kptr_restrict, dmesg_restrict, randomize_va_space) to harden a production kernel?" },
+  { track: "automotive", q: "Explain how Intrusion Detection and Prevention Systems (IDPS) work inside modern vehicle architectures." },
+  { track: "forensics", q: "How do you verify third-party open-source software (OSS) components for license and CVE risks using SBOMs?" },
+  { track: "forensics", q: "What is fuzz testing (e.g., AFL, libFuzzer), and where do you apply it in embedded protocol parsers?" },
+  { track: "forensics", q: "How do you analyze a core dump or crash log to determine if a segmentation fault is an exploitable security bug?" },
+  { track: "forensics", q: "Explain how ARP, DNS, and DHCP spoofing occur on local networks and how firewall/switch rules prevent them." },
+  { track: "forensics", q: "What is a Security Incident Event Management (SIEM) workflow for embedded/IoT fleet telemetry?" },
+  { track: "automotive", q: "How do you design secure key provisioning and certificate rotation during ECU manufacturing?" },
+  { track: "automotive", q: "Explain the concept of Defense-in-Depth applied to a connected vehicle gateway architecture." },
+  { track: "linux", q: "How do you audit SUID/SGID binaries and world-writable files on a hardened Linux image?" },
+  { track: "forensics", q: "What is the difference between a vulnerability assessment, a penetration test, and a red-team exercise?" },
+  { track: "aosp", q: "How do you secure BLE (Bluetooth Low Energy) pairing and key exchange in automotive keyless entry or infotainment?" },
+  { track: "linux", q: "Explain how iptables connection tracking (conntrack) works and how stateful firewall rules differ from stateless rules." },
+  { track: "forensics", q: "How do you validate that a patched CVE is truly mitigated in the compiled binary and not just bypassed?" },
+  { track: "linux", q: "What are the security implications of dynamic linker features like LD_PRELOAD, and how do you prevent library hijacking?" },
+  { track: "automotive", q: "How do you document residual risk and cybersecurity rationale when a vulnerability cannot be immediately patched before SOP (Start of Production)?" }
+];
+
+const behavioralBank = [
+  "Tell me about a time you identified a critical security vulnerability during development. How did you convince engineering to prioritize fixing it?",
+  "Describe a situation where a functional requirement conflicted directly with a security hardening requirement. How did you resolve it?",
+  "Walk me through a high-pressure security incident or production alert you investigated. What was your exact triage process?",
+  "Tell me about a time you had to explain a complex technical risk (like a TARA finding or CVE) to non-technical stakeholders or management.",
+  "Describe a situation where an SELinux policy or firewall rule broke a legitimate application feature. How did you debug and fix it under time pressure?",
+  "How do you stay current with newly disclosed CVEs, Linux kernel exploits, and automotive security advisories?",
+  "Tell me about a time you automated a repetitive security check, log analysis, or CI/CD gate to save engineering time.",
+  "Describe a disagreement with a software developer over a static analysis (SonarQube) or code review finding. How did you handle it?",
+  "Give an example of working across distributed teams (e.g., firmware, QA, and cloud teams) to close a cross-layer security issue.",
+  "Tell me about a time you had to learn a completely new protocol, OS subsystem, or security standard quickly to deliver on a project.",
+  "Describe a situation where you discovered a security gap that wasn't part of your assigned ticket. What action did you take?",
+  "How do you balance thoroughness in security testing with tight automotive SOP or release deadlines?",
+  "Tell me about a mistake or false positive you encountered during a security investigation and what you learned from it.",
+  "Describe how you document threat models, TARA reports, or incident post-mortems so other engineers can act on them.",
+  "Give an example of mentoring or helping a teammate understand secure coding practices, Linux hardening, or packet analysis.",
+  "Tell me about a time you had to push back against disabling a security control (like SELinux or a firewall rule) for convenience.",
+  "How do you prioritize your workload when multiple critical CVEs and incident tickets arrive simultaneously?",
+  "Describe a project where you worked directly with external suppliers or Tier-2 vendors to verify their cybersecurity deliverables.",
+  "Tell me about a time you improved the overall security posture of a product rather than just fixing an isolated bug.",
+  "How do you handle ambiguity when requirements for a new security feature or compliance audit are incomplete?",
+  "Describe a situation where you had to reproduce an intermittent network or OS security issue with limited logs.",
+  "Tell me about a time you collaborated with QA/test teams to integrate security test cases into regular regression suites.",
+  "What motivates you to specialize in embedded and automotive cybersecurity over general IT security?",
+  "Describe a time you received critical feedback on a security design or report. How did you incorporate it?",
+  "How do you approach threat modeling when you are joining an existing product mid-lifecycle?",
+  "Tell me about a time you successfully defended a technical architectural decision during a security review.",
+  "Describe an experience where you had to manage stakeholder expectations when a vulnerability patch required a release delay.",
+  "How do you ensure security standards like ISO/SAE 21434 are treated as engineering enablers rather than paperwork?",
+  "Tell me about a complex debugging session using Wireshark, tcpdump, or kernel logs where persistence paid off.",
+  "Describe a situation where you had to coordinate an emergency patch rollout across multiple software branches.",
+  "How do you build strong working relationships with firmware and kernel developers who view security as a bottleneck?",
+  "Tell me about a time you simplified a complex security configuration or deployment workflow.",
+  "Describe a scenario where you had to assess risk when 100% remediation wasn't technically feasible.",
+  "How do you verify that your security fixes do not introduce performance degradation on resource-constrained ECUs?",
+  "Tell me about a time you took ownership of an unassigned security task that improved team efficiency.",
+  "Describe how you prepare before conducting a threat modeling workshop with system architects.",
+  "How do you handle repetitive compliance or vulnerability tracking tasks while keeping quality high?",
+  "Tell me about a time you worked under tight deadlines to meet an external audit or customer security milestone.",
+  "Describe a situation where clear communication prevented a misconfiguration in production.",
+  "What is the most interesting cybersecurity vulnerability or attack mechanism you have analyzed recently?",
+  "How do you evaluate trade-offs between usability, latency, and cryptographic strength in embedded systems?",
+  "Tell me about a time you helped bridge communication between security researchers/testers and product developers.",
+  "Describe how you organize your investigation notes and evidence during an active security incident.",
+  "Tell me about a time you adapted your communication style when working with global engineering teams.",
+  "What kind of security engineering culture allows you to do your best technical work?",
+  "Describe a time you identified a pattern across multiple minor bugs that pointed to a deeper architectural flaw.",
+  "How do you handle situations where third-party closed-source binaries introduce vulnerabilities you cannot directly patch?",
+  "Tell me about a goal you set for your technical growth in cybersecurity over the past year and how you achieved it.",
+  "What questions do you ask engineering leaders to evaluate how seriously a company takes product security?",
+  "Why are you interested in this role at our company, and how does your background in embedded/automotive security fit our roadmap?"
+];
+
+function generateQuestions() {
+  const company = document.getElementById('targetCompany').value.trim() || "Target Security Role";
+  const track = document.getElementById('targetTrackFilter').value;
+
+  const filteredTech = track === 'all'
+    ? technicalBank
+    : technicalBank.filter(item => item.track === track);
+
+  const techList = document.getElementById('technicalQuestionsList');
+  const behavList = document.getElementById('behavioralQuestionsList');
+
+  techList.innerHTML = filteredTech.map(item => `
+    <li>
+      <div>${item.q}</div>
+      ${item.hint ? `<div class="q-hint"><strong>💡 Key Points:</strong> ${item.hint}</div>` : ''}
+    </li>
+  `).join('');
+
+  behavList.innerHTML = behavioralBank.map(q => `<li>${q}</li>`).join('');
+
+  document.getElementById('techHeading').innerText = `🛡️ Technical Questions (${filteredTech.length} Shown)`;
+  document.getElementById('interviewHeader').innerText = `🎯 Cybersecurity Interview Bank — ${company}`;
+}
+generateQuestions();
+
+// TARGET COMPANIES (ALL INDIA HUBS)
+const companies = [
+  { name: "Harman International", type: "Automotive Tier-1", location: "Bengaluru, Pune", roles: "Automotive Cybersecurity, AOSP/IVI Security", link: "https://jobs.harman.com/" },
+  { name: "Bosch (BGSW)", type: "Automotive Tech", location: "Bengaluru, Coimbatore, Hyderabad", roles: "ISO 21434 Engineer, Embedded Security", link: "https://www.bosch.in/careers/" },
+  { name: "Mercedes-Benz R&D (MBRDI)", type: "Automotive OEM GCC", location: "Bengaluru, Pune", roles: "Vehicle Cybersecurity, TARA, ECU Security", link: "https://www.mbrdi.co.in/careers" },
+  { name: "Continental Automotive", type: "Automotive Tier-1", location: "Bengaluru, Gurugram", roles: "Automotive Cybersecurity, Embedded Linux", link: "https://www.continental.com/en/career/" },
+  { name: "KPIT Technologies", type: "Automotive Software", location: "Pune, Bengaluru, Mumbai", roles: "ISO 21434 TARA, AUTOSAR SecOC, ECU Hardening", link: "https://www.kpit.com/careers/" },
+  { name: "ZF Group", type: "Automotive Tier-1", location: "Hyderabad, Pune, Chennai", roles: "Vehicle Cybersecurity, TARA, Embedded Linux", link: "https://jobs.zf.com/" },
+  { name: "Tata Elxsi & Tata Tech", type: "Automotive & Embedded", location: "Pune, Bengaluru, Chennai", roles: "Automotive Cybersecurity, Infotainment Security", link: "https://www.tataelxsi.com/careers" },
+  { name: "Aptiv", type: "Connected Mobility Tier-1", location: "Bengaluru, Chennai", roles: "Vehicle Cybersecurity, Threat Modeling", link: "https://jobs.aptiv.com/" },
+  { name: "Qualcomm India", type: "Semiconductor / Embedded", location: "Bengaluru, Hyderabad, Chennai", roles: "Android/AOSP Security, Linux Kernel Security", link: "https://careers.qualcomm.com/" },
+  { name: "NXP Semiconductors", type: "Automotive & IoT Chips", location: "Bengaluru, Noida, Pune", roles: "Embedded Security, Cryptographic Firmware", link: "https://www.nxp.com/company/about-nxp/careers:CAREERS" },
+  { name: "NVIDIA Graphics", type: "AI & Autonomous Compute", location: "Pune, Hyderabad, Bengaluru", roles: "Embedded Linux & DriveOS Security", link: "https://www.nvidia.com/en-in/about-nvidia/careers/" },
+  { name: "Renault Nissan Tech (RNTBCI)", type: "Automotive OEM GCC", location: "Chennai", roles: "ISO 21434, UNECE R155, Connected Car Security", link: "https://www.rntbci.in/careers" },
+  { name: "Palo Alto Networks", type: "Pure-Play Cybersecurity", location: "Bengaluru", roles: "Network Security, Threat Research, Vulnerability Mgmt", link: "https://jobs.paloaltonetworks.com/" },
+  { name: "CrowdStrike", type: "Pure-Play Cybersecurity", location: "Bengaluru, Pune, Remote", roles: "Threat Intelligence, Linux Endpoint Security", link: "https://www.crowdstrike.com/careers/" },
+  { name: "Cisco Systems", type: "Networking & Security", location: "Bengaluru, Chennai", roles: "Embedded Linux Security, Network Forensics", link: "https://jobs.cisco.com/" },
+  { name: "IBM India (Security & Consulting)", type: "MNC / GCC", location: "Bengaluru, Hyderabad, Pune, NCR", roles: "Product Security, Incident Response, InfoSec", link: "https://www.ibm.com/careers" }
+];
+
+function renderCompanies() {
+  const filter = (document.getElementById('gccFilterInput')?.value || "").toLowerCase().trim();
+  const tbody = document.getElementById('companyTableBody');
+  const filtered = companies.filter(c =>
+    c.name.toLowerCase().includes(filter) ||
+    c.type.toLowerCase().includes(filter) ||
+    c.location.toLowerCase().includes(filter) ||
+    c.roles.toLowerCase().includes(filter)
+  );
+
+  tbody.innerHTML = filtered.map(c => {
+    const peopleUrl = `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(c.name + " Cybersecurity Manager OR Security Lead")}`;
+    return `
+      <tr>
+        <td><strong>${c.name}</strong></td>
+        <td>${c.type}</td>
+        <td>${c.location}</td>
+        <td>${c.roles}</td>
+        <td style="white-space: nowrap;">
+          <a href="${c.link}" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600; margin-right: 12px;">Careers ↗</a>
+          <a href="${peopleUrl}" target="_blank" style="color: var(--purple); text-decoration: none; font-weight: 600;">Hiring Managers ↗</a>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+renderCompanies();
+
+// HIKE CALCULATOR
+function calculateHike() {
+  const curr = parseFloat(document.getElementById('currCtc').value) || 0;
+  const off = parseFloat(document.getElementById('offCtc').value) || 0;
+  const varPct = parseFloat(document.getElementById('varPct').value) || 0;
+
+  const fixedOff = off * (1 - varPct / 100);
+  const gain = fixedOff - curr;
+  const hikePct = curr > 0 ? ((gain / curr) * 100) : 0;
+  const monthlyGain = (gain * 100000) / 12;
+
+  document.getElementById('resFixed').innerText = `${fixedOff.toFixed(2)} LPA`;
+  document.getElementById('resHike').innerText = `${hikePct >= 0 ? '+' : ''}${hikePct.toFixed(1)}%`;
+  document.getElementById('resGain').innerText = `${gain >= 0 ? '+' : ''}${gain.toFixed(2)} LPA`;
+  document.getElementById('resMonthly').innerText = `${monthlyGain >= 0 ? '+' : ''}₹${Math.round(monthlyGain).toLocaleString('en-IN')} / mo`;
+}
+calculateHike();
+</script>
+</body>
+</html>
